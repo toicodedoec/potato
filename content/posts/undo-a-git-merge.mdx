@@ -1,0 +1,28 @@
+---
+slug: undo-a-git-merge
+title: Undo a Git merge
+date: 2021-09-02
+author: wutali
+tags: []
+---
+Obtain the ref of the commit you need to reset the branch back.
+
+```
+git reflog show --all
+```
+
+After running `git reflog`, you will identify the commit you want to return to and copy the commit SHA.
+
+At this point in the process, you will need to verify that your merged commit was not already pushed to your remote. If this is the case, you will move forward with the `git reset` command.
+
+```
+git reset --hard <merge-commit-sha>
+```
+
+If you have already pushed the merge commit to the remote repo, you will need to make a new commit that reverts the changes.
+
+```
+git revert -m 1 <merge-commit-sha>
+```
+
+This will create a new commit that reverses the changes from the merge commit.
