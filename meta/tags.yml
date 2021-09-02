@@ -11,3 +11,9 @@ tags:
     name: mdx
   - slug: markdown
     name: markdown
+  - slug: git
+    name: git
+  - slug: code
+    name: code
+  - slug: image
+    name: image
