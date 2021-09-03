@@ -1,0 +1,20 @@
+---
+slug: setter-injection-vs-constructor-injection
+title: Setter injection vs constructor injection
+date: 2021-09-02
+author: potato
+tags:
+  - code
+---
+**Setter injection**
+
+* is more readable
+* not ensure that the injection happens (if we don’t call the setter method then the object doesn’t have that dependency)
+* should be used for optional dependencies
+* might be useful for circular  dependencies (bean A requires bean B and vice versa, this case the contructor injection can’t happen because no bean can be constructed); setter injection will allow the beans constructed then the setter injection happens
+* has a drawback of security when we can call setter method multiple times on the same object instance and it means that we can change the dependency, while we can’t do that with constructor injection because we get a new object instance everytime the constructor injection happens
+
+**Constructor injection**
+
+* not good if we have a lot of parameters
+* is helpful for mandatory dependencies
