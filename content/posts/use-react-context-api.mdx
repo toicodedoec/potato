@@ -1,0 +1,42 @@
+---
+slug: use-react-context-api
+title: Use React Context API
+date: 2021-09-07
+author: potato
+tags:
+  - code
+---
+Something like
+
+We set up a bucket (context) by calling React API createContext with some initial shit
+
+```
+export const ShitBucket = createContext(your-first-shit);
+```
+
+This guy returns us some things, including provider and consumer
+
+```
+interface Context<T> {
+   Provider: Provider<T>;
+   Consumer: Consumer<T>;
+   displayName?: string;
+}
+createContext<T>(defaultValueState: T): Context<T>;
+
+```
+Then we use the provider as our shit provider, who wants to get the latest shit from him need to be rendered under this guys:
+```
+<ShitBucket.Provider value={latest-state}>
+   {children}
+</ShitBucket.Provider>
+```
+This provider doesn't have the shit himself, his children will contribute shit into the bucket via something like reducer & dispatch, but he can make sure that he's always able to give us the latest shit.
+
+That's it!
+
+And wherever the children want to get some shit from the provider, they can use the useContext, this hook requires the global bucket as a parameter:
+```
+const {shit} = useContext(OurGlobalBucket);
+<div>{shit}</div>
+```
