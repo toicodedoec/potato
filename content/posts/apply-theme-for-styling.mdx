@@ -1,0 +1,33 @@
+---
+slug: apply-theme-for-styling
+title: Apply theme for styling
+date: 2021-09-21
+author: potato
+tags:
+  - style
+---
+```
+import { Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+
+export interface MyProps {
+  highlighted?: boolean;
+  resultRowHeight?: number;
+  selected?: boolean;
+}
+
+export const useThemeStyle = makeStyles<Theme, MyProps>((theme: Theme) => ({
+  name: props => ({
+    fontSize: 12,
+    color: props.highlighted ? theme.palette.text.constract : theme.palette.text.primary,
+  }),
+}));
+
+const { container, name, checkbox, item } = useThemeStyle({
+    highlighted: highlighted,
+    resultRowHeight: resultRowHeight,
+    selected: selected,
+});
+
+<span className={name}>TEST THEME</span>
+```
