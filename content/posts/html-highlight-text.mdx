@@ -1,0 +1,39 @@
+---
+slug: html-highlight-text
+title: HTML Highlight Text
+date: 2021-09-23
+author: potato
+tags:
+  - code
+---
+```
+const escapeRegExp = (inputString: string) =>
+  // Escape characters with special meaning either inside or outside character sets.
+  // Use a simple backslash escape when it’s always valid, and a `\xnn` escape when the simpler form would be disallowed by Unicode patterns’ stricter grammar.
+  inputString.replace(/\[|\{}()[]^$+*?.]/g, '\$&').replace(/-/g, '\x2d');
+```
+
+```
+const defaultGetHighlightRegex = (highlightValue: string) => new RegExp(escapeRegExp(highlightValue), 'gi');
+```
+
+```
+export const highlight = (text: string, highlightValue: string, customGetHighlightRegex: any) => {
+  const getHighlightRegex = customGetHighlightRegex || defaultGetHighlightRegex;
+  const highlightRegex = getHighlightRegex(highlightValue);
+  const matches = text.match(highlightRegex) || [];
+  const remaining = text.split(highlightRegex).filter((w) => matches.indexOf(w) === -1);
+
+  return remaining.reduce(
+    (acc, nonMatch, nonMatchIndex) => [
+      ...acc,
+      nonMatch || null,
+      matches[nonMatchIndex] ? <strong key={`${text}${nonMatchIndex}`}>{matches[nonMatchIndex]}</strong> : null,
+    ],
+    []
+  );
+};
+```
+```
+<span>{highlight("doan", "do", undefined)}</span>
+```
