@@ -1,0 +1,23 @@
+---
+slug: es-alias
+title: ES Alias
+date: 2021-10-25
+author: potato
+tags:
+  - code
+---
+**Problem**
+
+When working with multiple indexes in ElasticSearch, you can sometimes lose track of them.
+
+Imagine a situation where you store logs in your indexes. Usually, the number of log messages is quite large; therefore, it is a good solution to have the data divided somehow. A quite logical division of such data is obtained by creating a single index for a single day of logs. 
+
+After a while, if we keep all the indexes, we start having problems in understanding which are the newest indexes, which ones should be used, which ones are from the last month, and maybe which data belongs to which client. 
+
+With the help of aliases, we can change that to work with a single name, just as we would use a single index, but instead work with multiple indexes.
+
+**An alias**
+
+What is an index alias? It's an additional name for one or more indexes that allow(s) us to query indexes with the use of that name. A single alias can have multiple indexes as well as the other way around, a single index can be a part of multiple aliases.
+
+However, please remember that you can't use an alias that has multiple indexes for indexing or real-time GET operations—ElasticSearch will throw an exception if you do that. We can still use an alias that links to only one single index for indexing though. This is because ElasticSearch doesn't know in which index the data should be indexed, or from which index the document should be fetched.
