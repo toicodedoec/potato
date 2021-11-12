@@ -101,7 +101,6 @@ collections:
       - label: "Slug"
         name: "slug"
         widget: "string"
-        required: false
       - label: "Title"
         name: "title"
         widget: "string"
