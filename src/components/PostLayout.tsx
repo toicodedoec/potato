@@ -85,7 +85,8 @@ export default function PostLayout({
           {/* <div className={"social-list"}>
             <SocialList />
           </div> */}
-          <Copyright />
+          {/* <Copyright /> */}
+          <div style={{height: 20}}>&nbsp;</div>
         </footer>
       </div>
       <style jsx>

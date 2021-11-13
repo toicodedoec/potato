@@ -17,3 +17,5 @@ tags:
     name: code
   - slug: image
     name: image
+  - slug: english
+    name: english

@@ -14,17 +14,25 @@ just creating a new "user" and let it there will not make the new user be able t
 
 when a new user is created, the DBA must at least assing "CREATE SESSION" privilege so the user can connect to the database;
 
-`grant create session to the-new-user;`
+```
+grant create session to the-new-user;
+```
 
 of course, the DBA needs to assign more and more privileges based on his role, for example: the new user needs to be able to update the table DOG or insert a new record to the table PUMPKIN;
 
 to make the life easy, the DBA can create a "role" with appropriate privileges and then assign the role to the user;
 
-`create role house-roof-role;`
+```
+create role house-roof-role;
+```
 
-`grant insert on DOG to house-roof-role;`
+```
+grant insert on DOG to house-roof-role;
+```
 
-`grant house-roof-role to user-wife;`
+```
+grant house-roof-role to user-wife;
+```
 
 profile is something different from user and role;
 
@@ -38,8 +46,14 @@ resource management:
 * **IDLE_TIME:** Total time user can stay inside database without doing any activity
 * **CONNECT_TIME:** Total time user can stay inside database whether idle of active
 
-`select * from dba_profiles;`
+```
+select * from dba_profiles;
+```
 
-`select * from dba_roles;`
+```
+select * from dba_roles;
+```
 
-`select * from dba_role_privs;`
+```
+select * from dba_role_privs;
+```
