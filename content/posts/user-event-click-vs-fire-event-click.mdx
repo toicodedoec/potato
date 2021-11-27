@@ -1,0 +1,14 @@
+---
+slug: user-event-click-vs-fire-event-click
+title: userEvent.click vs fireEvent.click
+date: 2021-11-26
+author: potato
+tags:
+  - code
+---
+* for example: fire a click event on a button
+
+  * fireEvent: the button will not be focused
+  * userEvent: the button will be focused
+* userEvent can be better to reflect the user real behavior;
+* behind the scenes, userEvent calls to the fireEvent;
