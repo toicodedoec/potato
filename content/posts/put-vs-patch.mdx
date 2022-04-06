@@ -1,0 +1,20 @@
+---
+slug: put-vs-patch
+title: PUT vs PATCH
+date: 2022-04-06
+author: potato
+tags:
+  - code
+---
+**PUT**\
+If I want to update my `first` name, then I send a **put** request:
+
+```
+{ "first": "Nazmul", "last": "hasan" } 
+```
+
+But here is a problem with using `put` request: When I want to send `put` request I have to send all two parameters that is `first` and `last` (whereas I only need to update `first`) so it is mandatory to send them all again with `put` request.
+
+**PATCH**\
+`patch` request, on the other hand, says: only specify the `data` which you need to `update` and it won't be affecting or changing other data.\
+So no need to send all values again. Do I only need to change `first` name? Well, It only suffices to specify `first` in `patch` request.
