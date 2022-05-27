@@ -1,0 +1,69 @@
+---
+slug: front-end-infrastructure-at-scale
+title: front end infrastructure at scale
+date: 2022-05-27
+author: potato
+tags:
+  - code
+---
+##### Typescript
+
+Ai làm front end cũng biết JS là ngôn ngữ không có type, lúc source code to lên thì đôi khi “variable” type xài lúc này có thể không còn đúng ở lúc sau nữa, nhiều lúc làm mình tốn rất nhiều não và thời gian chỉ để biết được cái type của cái variable đó là cái gì.
+
+Đôi lúc cái props A không được phép \`undefined\`, mà vô tình hay cố ý nó lại \`undefined\` dẫn tới cái web app nó crash vào ngày thứ 7 và chủ nhật, kỹ sư phải mở máy lên để mà investigate và cho thêm 1 vài đoạn “if” thần thánh để fix. Và trong code base chắc có cả đống chỗ như vậy.
+
+Interface chặt chẽ, ai làm React rồi chắc cũng biết mình có thể pass whatever props vào bên trong cái component. Có nhiều trường hợp cái “props A” đang được xài ở component (1) này, sau 1 thời gian refactor họ remove cái “props A” rồi, nhưng cái component xài component (1) vẫn còn pass cái props A vào sẽ làm cho engineer rất bối rối, ko biết có magic code nào ở đây không. Hoặc có 1 số trường hợp engineer họ xoá cái props A đi vì không thấy trong code, nhưng có 1 chỗ bí mật nào đó sử dụng, thế là cái app crash. Typescript solve problem này bằng cách tạo ra interface rất chặt chẽ cho component của mình, nếu mình xài thiếu hay dư props thì compiler sẽ báo lỗi và buộc mình phải sửa.
+
+Typescript do Microsoft phát triển, xài kết hợp với Visual Studio Code thì sẽ có thêm rất nhiều tính năng giúp tăng tốc việc navigate files khi codebase lớn. Mình nghĩ “cái gì mà tool nó làm được thì để nó làm để dành sức làm việc khác”.
+
+##### Mono repo & Poly repo
+
+Mình sẽ không so sánh vì có rất nhiều bài viết nói về vấn đề này rồi. Mình chỉ nói cảm nhận sau khi trải qua 2 cách tiếp cận này.
+
+###### POLY REPO
+
+* Nó giúp team manage code mà team đang vận hành, thường là khá nhỏ dẫn tới việc build hay deploy này nọ nó cũng nhanh.
+* Mỗi team tự manage issue không ảnh hưởng gì tới team khác
+* Tự quyết định tech stack
+
+Nhưng có 1 vấn đề hồi đó mình gặp đó là
+
+công ty phát triển một thư viện xài chung, và có rất nhiều projects (> 20) được owned bởi các team xài thư viện của công ty. Sau khi thư viện release version mới thì việc thông báo cho các team khác để up version là rất khó khăn nếu không có một process cụ thể thì sẽ xảy ra trường hợp có team đã up version mới nhất, có team thì lib bị out date.
+
+Nếu có quá nhiều projects thì cách quản lý, tìm kiếm cũng sẽ khó khăn và tốn rất nhiều thời gian. Cứ ngồi control + tab để xem project này và project kia khoản 10-15p là loạn luôn, nhiều khi quên mất luôn mình đang định làm gì.
+
+###### MONO REPO
+
+Tất cả projects của một domain sẽ được gói gọn trong một repo siêu to khổng lồ, hồi đó team mình chơi hơi mạnh setup từ đầu mono repo nên cũng có khá nhiều technical challenge và có hơn > 10 teams tham gia vào monorepo để rebuild lại product.
+
+*Thế tại sao tụi mình lại quyết định chuyển qua mono repo?*
+
+Product của tụi mình có rất nhiều team phát triển, có 1 số team họ chỉ có 1 tính năng rất nhỏ và muốn embed vào trang web chính, thế là họ phát triển và export ra 1 cái bundle file bao gồm jQuery, lodash và các thể loại thư viện hạng nặng (you name it). Hãy tưởng tượng có 10 teams như vậy cho ra 10 cái bundle files siêu to khổng lồ nhúng vào trang web chính làm cho trang web nó rất nặng nề và conflict version lẫn nhau. Chưa kể khi có bug, thì việc mà set up development để reproduce trở nên rất khó khăn, tốn rất nhiều thời gian để communicate. Thêm vào đó là UI ko consistent, ví dụ designer họ đưa mã màu chuẩn, nhưng team khác họ lấy màu lệch 1 chút nhưng nhìn vẫn giống. Tổng hợp lại nhìn cái product ko khác gì cái nồi lẩu. Đó là lý do tụi mình migrate qua mono repo để solve problem trên. Tuy nhiên nó cũng đi kèm với khá nhiều technical challenge.
+
+* Webpack config rất phức tạp, và trở thành cái khó upgrade nhất. Vì để thay đổi thì đòi hỏi phải hiểu rất sâu về webpack config.
+* Nâng cấp version các thư viện rất khó khăn, đòi hỏi phải collaborate với các team để họ test và gather benchmark. Mình còn nhớ việc upgrade React version diễn ra 4 tháng và NodeJS (mình làm) mất 1 năm thăng trầm.
+* Vì có quá nhiều team tham gia vào mono repo nên codebase cũng vì thế mà to lên rất nhiều (>15k \*.ts, \*.tsx files), kéo theo các scripts chạy để validate (linter, unit test, …) trở nên rất chậm theo (mỗi lần push code mất > 20 min), đòi hỏi phải bỏ ra 1 effort rất lớn để maintain, tụi mình có hẳn 1 team để phát triển các improvement đó.
+* Learning curve khá to vì mono repo tụi mình có quá nhiều thứ để cover, vì vậy khi 1 team nào mới join thì phải có 1 engineer bên core team advocate vào team kia để support 1 thời gian.
+
+##### CI/CD & githook
+
+Để đảm bảo code follow convention, thì tụi mình dùng githook và CI/CD để check code health. Tụi mình tạo ra các npm scripts để dùng chung giữa githhook và CI/CD.
+
+* githook
+
+  * pre-commit
+
+    * Run prettier
+  * pre-push
+
+    * Run typescript compiler để validate type
+    * Run eslint để check \*.ts, \*.tsx code có follow convention rule ko
+    * Run stylelint để check CSS có follow convention rule ko
+    * Run unit test
+* CI/CD
+
+  * Chạy tất cả các command ở pre-push
+  * visual regression testing cho tất cả các components
+  * run e2e testing
+
+Mỗi stage của CI/CD tụi mình đo lường thời gian thực thi, để sau này có thể dựa vào đó mà biết nhanh hay chậm để optimize.
