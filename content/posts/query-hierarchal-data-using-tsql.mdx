@@ -14,34 +14,6 @@ tags:
 
 # SQL
 
-<span style="color: blue;     background-color: #85ff7a;
-    border-color: #bce8f1;">select distinct id, client-level, root-id, path
-
-<span style="color: blue;     background-color: #85ff7a;
-    border-color: #bce8f1;">from
-
-<span style="color: blue;     background-color: #d9edf7;
-    border-color: #bce8f1;">(</span>
-
-<span style="color: blue;     background-color: #d9edf7;
-    border-color: #bce8f1;">select w1.id, level as client-level, CONNECT_BY_ROOT w1.id as root-id, SYS_CONNECT_BY_PATH((w1.id ) || '|' , '=>') path
-
-<span style="color: blue;     background-color: #d9edf7;
-    border-color: #bce8f1;">from</span> <span style="color: red; background-color: #fcf8e3;
-    border-color: #faebcc;">**(select * from table-name where ultimate_parent_id in ('0516013318')) w1**</span>
-
-<span style="color: blue;     background-color: #d9edf7;
-    border-color: #bce8f1;">start with w1.id = w1.ultimate_parent_id
-
-<span style="color: blue;     background-color: #d9edf7;
-    border-color: #bce8f1;">connect by nocycle prior w1.id = w1.parent_id
-
-<span style="color: blue;     background-color: #d9edf7;
-    border-color: #bce8f1;">) w2</span>
-
-<span style="color: blue;     background-color: #85ff7a;
-    border-color: #bce8f1;">order by root-id asc, client-level asc;</span>
-
 \-- Oracle selects the root row(s) of the hierarchy (those rows that satisfy the START WITH condition)
 
 \-- Oracle selects the child rows of each root row. Each child row must satisfy the condition of the CONNECT BY condition with respect to one of the root rows.
