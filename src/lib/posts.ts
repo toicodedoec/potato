@@ -8,7 +8,7 @@ const postsDirectory = path.join(process.cwd(), "content/posts");
 export type PostContent = {
   readonly date: string;
   readonly title: string;
-  readonly slug: string;
+  readonly slug?: string;
   readonly tags?: string[];
   readonly fullPath: string;
 };
@@ -44,6 +44,10 @@ export function fetchPostContent(): PostContent[] {
       matterData.fullPath = fullPath;
 
       const slug = fileName.replace(/\.mdx$/, "");
+
+      if (!matterData.slug) {
+        matterData.slug = slug;
+      }      
 
       // Validate slug string
       if (matterData.slug !== slug) {
