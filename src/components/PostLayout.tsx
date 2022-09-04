@@ -18,7 +18,7 @@ type Props = {
   date: Date;
   slug: string;
   tags: string[];
-  author: string;
+  author?: string;
   description?: string;
   children: React.ReactNode;
 };
@@ -26,7 +26,7 @@ export default function PostLayout({
   title,
   date,
   slug,
-  author,
+  author = "potato",
   tags,
   description = "",
   children,

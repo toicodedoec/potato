@@ -19,3 +19,7 @@ tags:
     name: image
   - slug: english
     name: english
+  - slug: sd
+    name: systemdesign
+  - slug: lc
+    name: leetcode
