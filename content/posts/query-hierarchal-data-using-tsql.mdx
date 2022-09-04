@@ -14,6 +14,27 @@ tags:
 
 # SQL
 
+```
+select distinct id, client-level, root-id, path
+from
+(
+  select 
+    w1.id, 
+    level as client-level, 
+    CONNECT_BY_ROOT w1.id as root-id,
+    SYS_CONNECT_BY_PATH((w1.id ) || '|' , '=>') path 
+  from 
+    (
+      select * 
+      from table-name 
+      where ultimate_parent_id='0516013318'
+    ) w1
+  start with w1.id = w1.ultimate_parent_id
+  connect by nocycle prior w1.id = w1.parent_id
+) w2
+order by root-id asc, client-level asc;
+```
+
 \-- Oracle selects the root row(s) of the hierarchy (those rows that satisfy the START WITH condition)
 
 \-- Oracle selects the child rows of each root row. Each child row must satisfy the condition of the CONNECT BY condition with respect to one of the root rows.
