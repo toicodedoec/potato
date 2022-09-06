@@ -23,3 +23,5 @@ tags:
     name: systemdesign
   - slug: lc
     name: leetcode
+  - slug: python
+    name: python
