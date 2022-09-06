@@ -1,0 +1,37 @@
+---
+title: "[python] tuple vs list vs set vs dict"
+date: 2022-09-06
+tags:
+  - code
+---
+Tuples are very similar to lists in that they are heterogeneous sequences of data. The difference is that a tuple is immutable, like a string.
+
+A tuple can't be changed.
+
+Tuples are written as comma-delimited values enclosed in parentheses.
+
+```python
+>>> my_tuple = (2, True, 4.96)
+>>> my_tuple
+(2, True, 4.96)
+>>> len(my_tuple)
+3
+>>> my_tuple[0]
+2
+>>> my_tuple * 3
+(2, True, 4.96, 2, True, 4.96, 2, True, 4.96)
+>>> my_tuple[0:2]
+(2, True)
+```
+
+Sets are heterogeneous as well and written as comma-delimeted values enclosed in curly braces.
+
+```python
+>>> {3, 6, "cat", 4.5, False}
+{False, 3, 4.5, 6, 'cat'}
+>>> my_set = {3, 6, "cat", 4.5, False}
+>>> my_set
+{False, 3, 4.5, 6, 'cat'}
+```
+
+Sets are unordered structure.
