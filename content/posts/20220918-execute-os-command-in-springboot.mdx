@@ -1,0 +1,42 @@
+---
+title: Execute OS command in SpringBoot
+date: 2022-09-18
+tags:
+  - code
+---
+```
+@Component
+@RequiredArgsConstructor
+@Log4j2
+public class CommandExecutor {
+
+    final String COMMAND_PING_TEST =
+            "cmd.exe /c ping 127.0.0.1";
+
+    public String executeWithPing() {
+        try {
+            String result = pingTest(COMMAND_PING_TEST);
+            return result;
+        } catch (IOException | InterruptedException e) {
+            log.error("Ping test failed");
+        }
+        return "Ping test failed";
+    }
+
+    private String pingTest(String command)
+            throws IOException, InterruptedException {
+
+        Process process;
+
+        process = Runtime.getRuntime()
+                .exec(String.format(command));
+
+        String result = CharStreams.toString(new InputStreamReader(
+                process.getInputStream(), "cp866"));
+
+        process.waitFor();
+        return result;
+    }
+
+}
+```
