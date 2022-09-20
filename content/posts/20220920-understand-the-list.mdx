@@ -1,0 +1,51 @@
+---
+title: Understand the LIST
+date: 2022-09-19
+tags:
+  - python
+---
+Two common operations are indexing and assigning to an index position. Both of these operations take the same amount of time no matter how large the list becomes. When an operation like this is independent of the size of the list, it is *O(1)*.
+
+Another very common programming task is to grow a list. There are two ways to create a LONGER list. You can use the ***append*** method or the concatenation operator. The ***append*** method is *O(1).* However, the concatenation operator is *O(k)* where *k* is the size of the list that is being concatenated.
+
+```
+def test1():
+    l = []
+    for i in range(1000):
+        l = l + [i]
+
+
+def test2():
+    l = []
+    for i in range(1000):
+        l.append(i)
+
+
+def test3():
+    l = [i for i in range(1000)]
+
+
+def test4():
+    l = list(range(1000))
+```
+
+```
+from timeit import Timer
+
+
+t1 = Timer("test1()", "from __main__ import test1")
+print(f"concatenation: {t1.timeit(number=1000):15.2f} milliseconds")
+t2 = Timer("test2()", "from __main__ import test2")
+print(f"appending: {t2.timeit(number=1000):19.2f} milliseconds")
+t3 = Timer("test3()", "from __main__ import test3")
+print(f"list comprehension: {t3.timeit(number=1000):10.2f} milliseconds")
+t4 = Timer("test4()", "from __main__ import test4")
+print(f"list range: {t4.timeit(number=1000):18.2f} milliseconds")
+
+concatenation:           6.54 milliseconds
+appending:               0.31 milliseconds
+list comprehension:      0.15 milliseconds
+list range:              0.07 milliseconds
+```
+
+When `pop` is called on the end of the list it takes *O(1)*, but when `pop` is called on the first element in the list—or anywhere in the middle it—is *O(N).* The reason for this lies in how Python chooses to implement lists. When an item is taken from the front of the list, all the other elements in the list are shifted one position closer to the beginning. This may seem silly to you now, but you will see that this implementation also allows the index operation to be *O(1)*. This is a tradeoff that the Python designers thought was a good one.
