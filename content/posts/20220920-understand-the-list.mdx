@@ -45,3 +45,5 @@ appending:               0.31 milliseconds
 list comprehension:      0.15 milliseconds
 list range:              0.07 milliseconds
 ```
+
+When `pop` is called on the end of the list it takes *O(1)*, but when `pop` is called on the first element in the list—or anywhere in the middle it—is *O(N).* The reason for this lies in how Python chooses to implement lists. When an item is taken from the front of the list, all the other elements in the list are shifted one position closer to the beginning. This may seem silly to you now, but you will see that this implementation also allows the index operation to be *O(1)*. This is a tradeoff that the Python designers thought was a good one.
