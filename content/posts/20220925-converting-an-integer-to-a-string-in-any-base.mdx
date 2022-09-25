@@ -1,0 +1,14 @@
+---
+title: Converting an Integer to a String in any Base
+date: 2022-09-25
+tags:
+  - python
+---
+```
+def to_str(n, base):
+   convert_string = "0123456789ABCDEF"
+   if n < base:
+      return convert_string[n]
+   else:
+      return to_str(n // base, base) + convert_string[n % base]
+```
