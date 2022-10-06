@@ -1,0 +1,11 @@
+---
+title: Why does binary search take O(logN)?
+date: 2022-10-05
+tags:
+  - lc
+---
+Let's use the same pizza analogy you have, and assume we have 1 whole pizza and we want 8 slices. Every time we cut, we divide by 2 as well.
+
+The first cut means we will have 2 slices. The second cut gives us 4 slices. The third cut results in 8 slices. We made 3 cuts to get to 8 slices. Mathematically, it turns out that there is a relationship with the numbers 2, 3, and 8. The log function connects those numbers accordingly. When we are limited to how much we can divide, that is our base (base = 2). We have a quantity which is 8. The number of operations was lg(8) = 3 (using lg as log of base 2).
+
+The same idea applies to binary search. We divide each section of the array we search by 2, the quantity is whatever our size of the array is, and the number of operations we perform is asymptotically lg(n).
