@@ -1,0 +1,31 @@
+---
+title: "Explain like I'm 5: TLS & Cert"
+date: 2022-10-05
+tags:
+  - code
+---
+**2 problems:**
+
+Encryption: you send the information, even if everybody can see it, only the right eyes can understand it
+
+Authentication: we're talking to the right person?
+
+**Encryption**
+
+You have 2 keys, if one is used to encrypt, the other one decrypts, and vice versa;
+
+so you have to keep one of them private and distribute the other;
+
+that way anybody who wants to communicate with you can encrypt data using your public key and only you can decrypt it using its associated private key;
+
+**Authentication**
+
+Story: my dad has a friend, that person hires a housekeeper; now that person mentions that if I hire the housekeeper as well, she would be very trustworthy and responsible; I agree to hire her;
+
+A woman I don't know now enters my house three times a week. Why? Because I trust her. But why do I trust her? Because I trust my dad's friend, not really the landlord — but I trust my dad and he told me the landlord is trustworthy. So you can begin to see a chain of trust forming here. I trust my father, my father trusts the landlord, the landlord trusts the housekeeper. Therefore, I trust the housekeeper.
+
+My dad is a Root Certificate Authority (Root CA). Often your web browsers or Operating Systems will come preinstalled with a set of Root CAs, and will trust whatever those CAs (Certificate Authority) trust.
+
+The landlord is an Intermediate CA. I trust him because I trust the Root CA (my dad).
+
+The Housekeeper is the entity whose identity I’m trying to establish. She will refer me to the landlord and my dad in order to ask for my trust.
