@@ -17,3 +17,5 @@ tags:
 .pem: a text-based container using base-64 encoding, it could be any of the above files. The contents of the PEM are detailed in the header and footer line.
 
 .jks: stands for Java Key Store, a native file format for Java to store and manage some or all of the files above. It can be used to store private keys with their certificate chains (root CA, intermediate CA's, leaf certificates or just a single self-signed certificate), certificates of other parties (usually but not necessarily CAs) to form a trust store, or both.
+
+PEM on it's own isn't a certificate, it's just a way of encoding data. X.509 certificates are one type of data that is commonly encoded using PEM.
