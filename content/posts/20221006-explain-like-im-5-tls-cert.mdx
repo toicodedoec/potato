@@ -1,0 +1,73 @@
+---
+title: "Explain like I'm 5: TLS & Cert"
+date: 2022-10-05
+tags:
+  - code
+---
+**2 problems:**
+
+Encryption: you send the information, even if everybody can see it, only the right eyes can understand it
+
+Authentication: we're talking to the right person?
+
+**Encryption**
+
+You have 2 keys, if one is used to encrypt, the other one decrypts, and vice versa;
+
+so you have to keep one of them private and distribute the other;
+
+that way anybody who wants to communicate with you can encrypt data using your public key and only you can decrypt it using its associated private key;
+
+![](https://sectigo.com/uploads/images/private-public-key.jpg)
+
+**Authentication**
+
+Story: my dad has a friend, that person hires a housekeeper; now that person mentions that if I hire the housekeeper as well, she would be very trustworthy and responsible; I agree to hire her;
+
+A woman I don't know now enters my house three times a week. Why? Because I trust her. But why do I trust her? Because I trust my dad's friend, not really the landlord — but I trust my dad and he told me the landlord is trustworthy. So you can begin to see a chain of trust forming here. I trust my father, my father trusts the landlord, the landlord trusts the housekeeper. Therefore, I trust the housekeeper.
+
+My dad is a Root Certificate Authority (Root CA). Often your web browsers or Operating Systems will come preinstalled with a set of Root CAs, and will trust whatever those CAs (Certificate Authority) trust.
+
+The landlord is an Intermediate CA. I trust him because I trust the Root CA (my dad).
+
+The Housekeeper is the entity whose identity I’m trying to establish. She will refer me to the landlord and my dad in order to ask for my trust.
+
+**A Certificate is the marriage between a Public Key and an Identity. If you take a public key and add information about the person who owns that pair of keys, you get a Certificate.**
+
+When your browser visits a website, the website may provide the full chain of certificates effectively saying: I am **Facebook**, you can know I’m **Facebook** because **DigiCert SHA2 High Assurance Server CA (an intermediate CA)** has issued my cert, you can trust **DigiCert SHA2 High Assurance Server CA** because their Certificate was issued by: **DigiCert High Assurance EV Root CA (a Root CA that your browser trusts from factory).**
+
+A certificate looks like this:
+
+```
+-----BEGIN CERTIFICATE-----
+
+...base 64 encoding...
+
+-----END CERTIFICATE-----
+```
+
+**A PEM file** may contain a complete certificate chain, where the chain starts with the leaf / end certificate of the service, followed by the certificate that signed it, usually up to but not including the trusted root certificate.
+
+**How new certificates are formed?**
+
+Everything begins with the Root CA’s certificate. In this certificate, the Issuer and the Common Name match (Common Name: the name of the entity for whose the Certificate applies to). In other words, the Root Certificate Authority issues its own Certificate without relying on somebody else.
+
+We now turn to Intermediate CAs. Let’s say the name of your company is MakingSense and you want to become an Intermediate CA. You first need to create a Public/Private Key Pair. Now you’re ready for encryption. The next step is to get the Root CA to say: *This Key Pair belongs to Making Sense*. In order to do this, you create a Certificate Signing Request.
+
+In a nutshell, you tell a Certificate Authority: *here’s my public key and my identity information*. Your private key always remains private. Now the CA has to decide whether to issue a Certificate for you. To do that, they could validate your identity in some way. For instance, if you use Let’s Encrypt, they will ask you to place a file in your server with a secret that they will attempt to retrieve (if they can retrieve it, it means you have access to that server, which means you own it). Once the CA verifies your identity, they will create a Certificate for you and sign it using their private key. Great! You’re now an Intermediate CA. You can now issue Certificates for other people.
+
+*Note: When you issue a Certificate, you can deny the recipient from issuing more certificates by creating what’s known as a Leaf Certificate.*
+
+You will encounter the term X.509. This is the name for a standard defining the format of public key certificates — the way the header, fields, etc are structured.
+
+![](https://blog.makingsense.com/wp-content/uploads/2019/10/Amazon-capture.png)
+
+Take a brief moment to make sure you understand what you’re being asked to do. Remember that a Root CA is someone you need to trust a priori. You need to trust a Root Certificate Authority before you can begin accepting TLS handshakes. The way to trust a Root CA is by taking their Certificate and adding it to the list of trusted Certificates. Amazon is asking you to do precisely that. In this case, you need to either add it to your Operating System pool of trusted Certificates or you need to update your application to include that Certificate in its list of trusted authorities.
+
+## TLS
+
+TLS is a protocol that enables secure communications.
+
+Something important to keep in mind is that the TLS link happens before any http traffic, meaning that it is independent of http. You can use TLS for your own custom proprietary protocol. For instance, I’m using TLS with a Go Binary protocol on top for one of my hobby projects.
+
+(By https://blog.makingsense.com/2019/10/explain-like-im-5-tls-certificates/)
