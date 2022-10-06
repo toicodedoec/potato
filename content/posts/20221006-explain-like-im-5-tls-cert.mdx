@@ -29,3 +29,29 @@ My dad is a Root Certificate Authority (Root CA). Often your web browsers or Ope
 The landlord is an Intermediate CA. I trust him because I trust the Root CA (my dad).
 
 The Housekeeper is the entity whose identity I’m trying to establish. She will refer me to the landlord and my dad in order to ask for my trust.
+
+**A Certificate is the marriage between a Public Key and an Identity. If you take a public key and add information about the person who owns that pair of keys, you get a Certificate.**
+
+When your browser visits a website, the website may provide the full chain of certificates effectively saying: I am **Facebook**, you can know I’m **Facebook** because **DigiCert SHA2 High Assurance Server CA (an intermediate CA)** has issued my cert, you can trust **DigiCert SHA2 High Assurance Server CA** because their Certificate was issued by: **DigiCert High Assurance EV Root CA (a Root CA that your browser trusts from factory).**
+
+A certificate looks like this:
+
+```
+-----BEGIN CERTIFICATE-----
+
+...base 64 encoding...
+
+-----END CERTIFICATE-----
+```
+
+**A PEM file** may contain a complete certificate chain, where the chain starts with the leaf / end certificate of the service, followed by the certificate that signed it, usually up to but not including the trusted root certificate.
+
+**How new certificates are formed?**
+
+Everything begins with the Root CA’s certificate. In this certificate, the Issuer and the Common Name match (Common Name: the name of the entity for whose the Certificate applies to). In other words, the Root Certificate Authority issues its own Certificate without relying on somebody else.
+
+We now turn to Intermediate CAs. Let’s say the name of your company is MakingSense and you want to become an Intermediate CA. You first need to create a Public/Private Key Pair. Now you’re ready for encryption. The next step is to get the Root CA to say: *This Key Pair belongs to Making Sense*. In order to do this, you create a Certificate Signing Request.
+
+In a nutshell, you tell a Certificate Authority: *here’s my public key and my identity information*. Your private key always remains private. Now the CA has to decide whether to issue a Certificate for you. To do that, they could validate your identity in some way. For instance, if you use Let’s Encrypt, they will ask you to place a file in your server with a secret that they will attempt to retrieve (if they can retrieve it, it means you have access to that server, which means you own it). Once the CA verifies your identity, they will create a Certificate for you and sign it using their private key. Great! You’re now an Intermediate CA. You can now issue Certificates for other people.
+
+*Note: When you issue a Certificate, you can deny the recipient from issuing more certificates by creating what’s known as a Leaf Certificate.*
