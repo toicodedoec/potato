@@ -1,0 +1,19 @@
+---
+title: pem, crt, cert, key, csr
+date: 2022-10-05
+tags:
+  - code
+---
+`.pem`, `.cer` and `.der` are all file extensions for files that may contain a X.509 v3 certificate.
+
+.key: can be any kind of key, but usually it is the private key.
+
+.p12: a PKCS12 file, which is a container format usually used to combine the private key and certificate.
+
+.cert or .crt: signed certificate; a certificate *contains* the public key, but it contains much more information (most importantly the signature by the Certificate Authority over the data and public key, of course).
+
+.csr: certificate signing request, this is a request for a certificate authority to sign the key (the key itself is not included). It contains information such as the public key and common name required by a Certificate Authority to create and sign a certificate for the requester.
+
+.pem: a text-based container using base-64 encoding, it could be any of the above files. The contents of the PEM are detailed in the header and footer line.
+
+.jks: stands for Java Key Store, a native file format for Java to store and manage some or all of the files above. It can be used to store private keys with their certificate chains (root CA, intermediate CA's, leaf certificates or just a single self-signed certificate), certificates of other parties (usually but not necessarily CAs) to form a trust store, or both.
