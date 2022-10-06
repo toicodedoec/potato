@@ -55,3 +55,17 @@ We now turn to Intermediate CAs. Let’s say the name of your company is MakingS
 In a nutshell, you tell a Certificate Authority: *here’s my public key and my identity information*. Your private key always remains private. Now the CA has to decide whether to issue a Certificate for you. To do that, they could validate your identity in some way. For instance, if you use Let’s Encrypt, they will ask you to place a file in your server with a secret that they will attempt to retrieve (if they can retrieve it, it means you have access to that server, which means you own it). Once the CA verifies your identity, they will create a Certificate for you and sign it using their private key. Great! You’re now an Intermediate CA. You can now issue Certificates for other people.
 
 *Note: When you issue a Certificate, you can deny the recipient from issuing more certificates by creating what’s known as a Leaf Certificate.*
+
+You will encounter the term X.509. This is the name for a standard defining the format of public key certificates — the way the header, fields, etc are structured.
+
+![](https://blog.makingsense.com/wp-content/uploads/2019/10/Amazon-capture.png)
+
+Take a brief moment to make sure you understand what you’re being asked to do. Remember that a Root CA is someone you need to trust a priori. You need to trust a Root Certificate Authority before you can begin accepting TLS handshakes. The way to trust a Root CA is by taking their Certificate and adding it to the list of trusted Certificates. Amazon is asking you to do precisely that. In this case, you need to either add it to your Operating System pool of trusted Certificates or you need to update your application to include that Certificate in its list of trusted authorities.
+
+## TLS
+
+TLS is a protocol that enables secure communications.
+
+Something important to keep in mind is that the TLS link happens before any http traffic, meaning that it is independent of http. You can use TLS for your own custom proprietary protocol. For instance, I’m using TLS with a Go Binary protocol on top for one of my hobby projects.
+
+(By https://blog.makingsense.com/2019/10/explain-like-im-5-tls-certificates/)
