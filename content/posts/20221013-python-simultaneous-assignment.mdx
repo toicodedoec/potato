@@ -1,0 +1,17 @@
+---
+title: Python simultaneous assignment
+date: 2022-10-12
+tags:
+  - python
+---
+The exchange operation, sometimes called a *swap*, is slightly different in Python than in most other programming languages. Typically, swapping two elements in a list requires a temporary variable (an additional memory location). A code fragment such as
+
+```
+temp = a_list[i]
+a_list[i] = a_list[j]
+a_list[j] = temp
+```
+
+will exchange the -th and -th items in the list. Without the temporary storage, one of the values would be overwritten.
+
+In Python, it is possible to perform simultaneous assignment. The statement `a, b = b, a` will result in two assignment statements being done at the same time. Using simultaneous assignment, the exchange operation can be done in one statement.
