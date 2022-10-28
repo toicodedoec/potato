@@ -1,0 +1,17 @@
+---
+title: Why binary search offer O(log2N)?
+date: 2022-10-27
+tags:
+  - lc
+---
+Each comparision eliminates about half of the remaning items from consideration. What is the maximum number of comparisions this algorithm will require to check the entire list?
+
+If we start with N items, about **N/2** items will be left after the first comparision.
+
+After the 2nd comparision, there will be about **N/4**. Then **N/8**, **N/16** and so on.
+
+When we split the list enough times, we end up with a list that has just 1 item. Either that is the item we're looking for or it is not. Either way, we're done.
+
+The number of comparisions necessary to get to this point is **i** where **N/2^i = 1**. Solving for **i** give us **i = logN**. The maximum number of comparisions is logarithmic with respect to the number of items in the list.
+
+Therefore the binary search is **O(logN)**.
