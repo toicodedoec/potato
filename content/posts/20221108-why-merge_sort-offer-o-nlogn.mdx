@@ -1,0 +1,11 @@
+---
+title: Why merge_sort offer O(NlogN)?
+date: 2022-11-07
+---
+In order to analyze the `merge_sort` function, we need to consider the two distinct processes that make up its implementation. 
+
+First, the list is split into halves. We already computed (in a binary search) that we can divide a list in half  times where  is the length of the list. The second process is the merge. Each item in the list will eventually be processed and placed on the sorted list. So the merge operation which results in a list of size  requires  operations. The result of this analysis is that  splits, each of which costs  for a total of  operations. A merge sort is an  algorithm.
+
+Recall that the slicing operator is  where  is the size of the slice. In order to guarantee that `merge_sort` will be  we will need to remove the slice operator. Again, this is possible if we simply pass the starting and ending indices along with the list when we make the recursive call. We leave this as an exercise.
+
+It is important to notice that the `merge_sort` function requires extra space to hold the two halves as they are extracted with the slicing operations. This additional space can be a critical factor if the list is large and can make this sort problematic when working on large data sets.
