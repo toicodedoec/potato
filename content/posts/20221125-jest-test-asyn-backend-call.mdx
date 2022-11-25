@@ -1,0 +1,26 @@
+---
+title: Jest test asyn backend call
+date: 2022-11-25
+tags:
+  - code
+---
+mocked(callToBackend).mockResolvedValue({key: value})
+
+
+expect(callToBackend).toBeCalledTimes(1);
+
+```
+const Test = () => {
+
+	useEffect(() => {
+		callToBackend()
+			.then(response => console.log("The call was made"))
+			.catch(error => console.error("Hey something wrong happened"))
+	}, []};
+
+	return (
+		<h1>TEST</h1>
+	);
+};
+
+```
