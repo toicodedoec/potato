@@ -1,0 +1,33 @@
+---
+title: What should we return from the useEffect hook?
+date: 2022-12-07
+tags:
+  - code
+---
+The only thing you can return from the useEffect hook is ***a cleanup function***. This function will run when the component unmounts.
+
+```
+useEffect(() => {
+  doSomething();
+  
+  return () => {
+    console.log("This will be logged on unmount");
+  }
+ }
+```
+
+You will get some error like *Uncaught TypeError: destroy is not a function* if you return anything else rather than a cleanup function, like:
+
+```
+useEffect(() => doSomething())
+```
+
+Why this one works?
+
+```
+useEffect(() => {
+  doSomething();
+});
+```
+
+The arrow function returns ***undefined***, which is acceptable and tells React that there is no cleanup function needed.
