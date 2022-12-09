@@ -24,4 +24,6 @@ tags:
   - slug: python
     name: python
   - name: efficient-code
-    slug: efficient-code
+    slug: ec
+  - slug: ds
+    name: data-structure
