@@ -25,3 +25,5 @@ tags:
     name: leetcode
   - slug: python
     name: python
+  - name: efficient-code
+    slug: efficient-code
