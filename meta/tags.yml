@@ -5,8 +5,6 @@ tags:
     name: mock
   - slug: style
     name: style
-  - slug: license
-    name: license
   - slug: mdx
     name: mdx
   - slug: markdown
@@ -20,9 +18,9 @@ tags:
   - slug: english
     name: english
   - slug: sd
-    name: systemdesign
+    name: system-design
   - slug: lc
-    name: leetcode
+    name: leet-code
   - slug: python
     name: python
   - name: efficient-code
