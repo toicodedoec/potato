@@ -1,0 +1,31 @@
+---
+title: Print all even numbers from 2 to 100
+date: 2022-12-09
+tags:
+  - lc
+---
+```
+def​ ​print_numbers_version_one​():
+​ 	  number = 2
+​ 	
+​ 	  ​while​ number <= 100:
+​ 	    ​# If number is even, print it:​
+​ 	    ​if​ number % 2 == 0:
+​ 	      ​print​(number)
+​ 	
+​ 	    number += 1
+```
+
+```
+def​ ​print_numbers_version_two​():
+​ 	  number = 2
+​ 	
+​ 	  ​while​ number <= 100:
+​ 	    ​print​(number)
+​ 	
+​ 	    ​# Increase number by 2, which, by definition,​
+​ 	    ​# is the next even number:​
+​ 	    number += 2
+```
+
+Version 1 ends up looping 100 times, while Version 2 only loops 50 times. The first version then, takes twice as many steps as the second version.
