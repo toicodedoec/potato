@@ -27,3 +27,5 @@ tags:
     slug: ec
   - slug: ds
     name: data-structure
+  - slug: react
+    name: react
