@@ -12,7 +12,7 @@ export default function Index() {
       <div className="container">
         <div>
           <h1 className="fancy">
-            potato's notes
+           The Hash Table 
           </h1>
           <span className="handle">@potato</span>
           {/* <SocialList /> */}          

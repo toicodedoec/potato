@@ -1,7 +1,7 @@
 {
   "base_url": "https://monetaboot.netlify.app/posts",
-  "site_title": "Potato Notes",
-  "site_description": "Potato Notes",
+  "site_title": "The Hash Table",
+  "site_description": "The Hash Table",
   "site_keywords": [
     {
       "keyword": "Next.js"
