@@ -4,7 +4,9 @@ date: 2022-12-11
 tags:
   - react
 ---
-Follow this tutorial: https://dev.to/alexeagleson/how-to-create-and-publish-a-react-component-library-2oe
+
+
+https://github.com/actions/setup-node/issues/269Follow this tutorial: https://dev.to/alexeagleson/how-to-create-and-publish-a-react-component-library-2oe
 
 #### Issue 1: The tutorial was published 2 years ago, so some version issues you have to solve
 
@@ -37,3 +39,15 @@ Downside of Github package registry
 
 * Installing packages from GitHub won’t be supported by the `npm` command-line interface (CLI) by default. You will first need to authenticate with GitHub using `npm login` or store your user token in your local `.npmrc` configuration file.
 * All packages served by GitHub are scoped. That means when you install a package, you’ll always have to use the organization or owner name as part of the command, such as `npm install @oktadev/super-cool-package`. You won’t be able to simply type `npm install super-cool-package`.
+
+Rename the package: https://github.com/actions/setup-node/issues/269
+
+#### Issue 5: NPM login
+
+```
+npm login
+npm adduser
+npm whoami
+```
+
+https://github.com/workshopper/how-to-npm/issues/25
