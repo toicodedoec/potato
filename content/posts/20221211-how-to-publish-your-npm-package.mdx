@@ -1,0 +1,39 @@
+---
+title: How to publish your NPM package?
+date: 2022-12-11
+tags:
+  - react
+---
+Follow this tutorial: https://dev.to/alexeagleson/how-to-create-and-publish-a-react-component-library-2oe
+
+#### Issue 1: The tutorial was published 2 years ago, so some version issues you have to solve
+
+```
+rollup/package.json
+
+engines": {
+    "node": ">=14.18.0",
+    "npm": ">=8.0.0"
+  },
+```
+
+#### Issue 2: TypeError: dts is not a function
+
+https://stackoverflow.com/questions/74255565/rollup-typescript-error-dts-is-not-a-function
+
+#### Issue 3: Could not find module 'tslib'
+
+> \[!] (plugin typescript) RollupError: @rollup/plugin-typescript: Could not find module 'tslib', which is required by this plugin. Is it installed?
+
+You need [tslib](https://www.npmjs.com/package/tslib), which is a [peer dependency](https://github.com/rollup/rollup-plugin-typescript#installation) of `rollup-plugin-typescript`.
+
+```
+npm i -D tslib
+```
+
+#### Issue 4: Github package registry or NPM registry
+
+Downside of Github package registry
+
+* Installing packages from GitHub won’t be supported by the `npm` command-line interface (CLI) by default. You will first need to authenticate with GitHub using `npm login` or store your user token in your local `.npmrc` configuration file.
+* All packages served by GitHub are scoped. That means when you install a package, you’ll always have to use the organization or owner name as part of the command, such as `npm install @oktadev/super-cool-package`. You won’t be able to simply type `npm install super-cool-package`.
