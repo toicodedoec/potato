@@ -4,6 +4,7 @@ import OpenGraphMeta from "../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
 export default function Index() {
+  alert('hi')
   return (
     <Layout>
       <BasicMeta url={"/"} />
@@ -14,7 +15,7 @@ export default function Index() {
           <h1 className="fancy">
            The Hash Table 
           </h1>
-          <span className="handle">@potato</span>
+          <span className="handle">@hash-table</span>
           {/* <SocialList /> */}          
         </div>
       </div>
