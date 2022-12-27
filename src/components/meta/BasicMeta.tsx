@@ -20,6 +20,7 @@ export default function BasicMeta({
       <title>
         {title ? [title, config.site_title].join(" | ") : config.site_title}
       </title>
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       <meta
         name="description"
         content={description ? description : config.site_description}
