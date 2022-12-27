@@ -5,7 +5,7 @@ import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
 import useSWR from 'swr';
 
-const API_URL = 'http://ip-api.com/json/';
+const API_URL = 'https://ipapi.co/json/';
 
 async function fetcher(url) {
   const res = await fetch(url);
@@ -17,10 +17,10 @@ export default function Index() {
   const { data, error } = useSWR(API_URL, fetcher);
 
   if (data) {
-    const { city, country, regionName } = data;
+    const { city, country, region } = data;
     fetch("/api/sheet", {
       method: "POST",
-        body: JSON.stringify(`${city}, ${regionName}, ${country}`),
+        body: JSON.stringify(`${city}, ${region}, ${country}`),
         headers: {
           'Content-Type': 'application/json',
         },
