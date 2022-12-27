@@ -3,7 +3,30 @@ import BasicMeta from "../components/meta/BasicMeta";
 import OpenGraphMeta from "../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
+import useSWR from 'swr';
+
+const API_URL = 'http://ip-api.com/json/';
+
+async function fetcher(url) {
+  const res = await fetch(url);
+  const json = await res.json();
+  return json;
+}
+
 export default function Index() {
+  const { data, error } = useSWR(API_URL, fetcher);
+
+  if (data) {
+    const { city, country, regionName } = data;
+    fetch("/api/sheet", {
+      method: "POST",
+        body: JSON.stringify(`${city}, ${regionName}, ${country}`),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    })
+  }
+
   return (
     <Layout>
       <BasicMeta url={"/"} />
