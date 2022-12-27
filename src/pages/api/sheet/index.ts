@@ -3,8 +3,6 @@ import { parseISO } from 'date-fns';
 
 async function handler(req, res) {
   if (req.method === 'POST') {
-    const { city, country, regionName } = req.body;
-
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.CLIENT_EMAIL,

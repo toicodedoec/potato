@@ -51,7 +51,7 @@ export default () => {
                   className="w-full h-8 px-3 bg-gray-100 border focus:outline-none rounded-full"
                   placeholder="Message..."
                 />
-                <button className="absolute z-10 top-0 right-0 mt-1 mr-2 block w-6 h-6 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none text-center leading-none flex justify-center items-center">
+                <button className="absolute z-10 top-0 right-0 mt-1 mr-2 w-6 h-6 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none text-center leading-none flex justify-center items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 text-center flex"
