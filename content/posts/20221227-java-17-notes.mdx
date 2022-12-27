@@ -1,0 +1,24 @@
+---
+title: Java 17 Notes
+date: 2022-12-26
+tags:
+  - document
+---
+Loom - Fiber là để cạnh tranh với mấy thằng có green thread/lightweight thread/lightweight process như Erlang, Go... Ưu điểm của đám này là nó không dùng native thread, không được schedule và manage bởi OS mà bởi VM/Runtime cho nên có thể launch cực nhanh và tiết kiệm resource.
+
+Lightweight thread (App thread) không phải lúc nào cũng ngon cũng thay thế được OS thread tuy nhiên ưu điểm lớn nhất của nó là lightweight, rất phù hợp với những ứng dụng yêu cầu highly concurrent.\
+\
+OS thead chiếm dụng nhiều tài nguyên hơn App thread. Một OS thread khi launch có thể chiếm đến 1000KB memory, còn App thread chỉ vài KB.\
+Vd như bên JVM khi launch một thread thì nó sẽ map 1-1 với OS thread, chiếm khoảng 1MB/thread, launch 1000 thread thì hết tầm 1GB memory. Còn goroutines thì chỉ khoảng 2KB-4KB (khi startup và có thể tăng lên nếu cần), giảm dc 250 lần so với OS thread.\
+\
+Các lightweight thread nó sẽ được VM/Runtime quản lý, multiplex map M-N với OS thead nên tận dụng tài nguyên CPU multiple core tốt hơn.\
+Với các môi trường highly concurrent thì VM/Runtime nó sẽ có nhiều strategy để quản lý lightweight thread, linh hoạt hơn so với việc để cho OS kernel manage.
+
+Loom thấy nói đến 2022 (Java 19) mới Final mà nhỉ. 17 dùng kiểu experimental thôi.\
+\
+Record là để thay thế cho class cho những usecase cần để làm data bag/data container. Trước đây thì phải dùng class để làm, giờ dùng cái này sẽ tiết kiệm resource hơn. Nó tương tự như struct bên C#.\
+\
+GraalVM là để giải quyết bài toán resource consumption của JVM. JVM nó được thiết kế từ lâu đời nên không phù hợp với môi trường tính toán hiện đại sử dụng container, function, serverless. Các môi trường này cần launch và destroy nhanh.\
+GraalVM bản chất nó hỗ trợ build AOT, bên trong app sau khi build sẽ có nhúng một thằng lightweight VM kiểu như bên Go VM.
+
+GraalVM định hướng của nó là universal hỗ trợ nhiều ngôn ngữ khác ngoài JVM langs như Python, Ruby, JavaScript. Vd viết code JavaScript có thể chạy thẳng trên JVM và build ra native nếu cần.
