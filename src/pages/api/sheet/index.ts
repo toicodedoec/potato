@@ -26,7 +26,7 @@ async function handler(req, res) {
       range: 'Sheet1!A2:C',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [[req.body, ((new Date()).toISOString())]],
+        values: [[req.body.ip, req.body.location, ((new Date()).toISOString())]],
       },
     });
 

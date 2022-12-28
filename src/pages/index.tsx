@@ -17,10 +17,10 @@ export default function Index() {
   const { data, error } = useSWR(API_URL, fetcher);
 
   if (data) {
-    const { city, country, region } = data;
+    const { ip, city, country, region } = data;
     fetch("/api/sheet", {
       method: "POST",
-        body: JSON.stringify(`${city}, ${region}, ${country}`),
+        body: JSON.stringify({ip: ip, location: `${city}, ${region}, ${country}`}),
         headers: {
           'Content-Type': 'application/json',
         },
