@@ -1,0 +1,79 @@
+---
+title: Automatic batching for fewer renders in React 18
+date: 2023-01-04
+tags:
+  - react
+---
+<https://github.com/reactwg/react-18/discussions/21>
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
+
+  function handleClick() {
+    setCount(c => c + 1); // Does not re-render yet
+    setFlag(f => !f); // Does not re-render yet
+    // React will only re-render once at the end (that's batching!)
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Next</button>
+      <h1 style={{ color: flag ? "blue" : "black" }}>{count}</h1>
+    </div>
+  );
+}
+```
+
+Until React 18, we only batched updates during the React event handlers. Updates inside of promises, setTimeout, native event handlers, or any other event were not batched in React by default.
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
+
+  function handleClick() {
+    fetchSomething().then(() => {
+      // React 17 and earlier does NOT batch these because
+      // they run *after* the event in a callback, not *during* it
+      setCount(c => c + 1); // Causes a re-render
+      setFlag(f => !f); // Causes a re-render
+    });
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Next</button>
+      <h1 style={{ color: flag ? "blue" : "black" }}>{count}</h1>
+    </div>
+  );
+}
+```
+
+Starting in React 18 with [`createRoot`](https://github.com/reactwg/react-18/discussions/5), all updates will be automatically batched, no matter where they originate from.
+
+This means that updates inside of timeouts, promises, native event handlers or any other event will batch the same way as updates inside of React events. We expect this to result in less work rendering, and therefore better performance in your applications.
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
+
+  function handleClick() {
+    fetchSomething().then(() => {
+      // React 18 and later DOES batch these:
+      setCount(c => c + 1);
+      setFlag(f => !f);
+      // React will only re-render once at the end (that's batching!)
+    });
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Next</button>
+      <h1 style={{ color: flag ? "blue" : "black" }}>{count}</h1>
+    </div>
+  );
+}
+```
