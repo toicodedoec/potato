@@ -7,6 +7,8 @@ tags:
 ---
 <https://blog.isquaredsoftware.com/presentations/2022-10-guide-react-rendering-behavior/?slideIndex=17&stepIndex=0>
 
+<https://www.developerway.com/posts/react-re-renders-guide>
+
 \=================
 
 A component render is considered "wasted" if it returns the same requested elements as before. Normally, `UI = f(props + state)`, so if props and state haven't changed, the UI output *should* be the same.
@@ -23,6 +25,7 @@ We can optimize performance by skipping component renders if props haven't chang
 
 ```javascript
 // ❌ BAD!
+// Antipattern: Creating components in render function
 // This creates a new `ChildComponent` reference every time!
 function ParentComponent() {
   function ChildComponent() {    
@@ -70,6 +73,33 @@ function ComponentA({data}) {
   return <div>{memoizedChild}</div>
 }
 ```
+
+\=================
+
+### Antipattern: Creating components in render function
+
+Creating components inside render function of another component is an anti-pattern that can be the biggest performance killer. On every re-render React will re-mount this component (i.e. destroy it and re-create it from scratch), which is going to be much slower than a normal re-render. On top of that, this will lead to such bugs as:
+
+* possible “flashes” of content during re-renders
+* state being reset in the component with every re-render
+* useEffect with no dependencies triggered on every re-render
+* if a component was focused, focus will be lost
+
+
+
+![](https://www.developerway.com/assets/react-re-renders-guide/part3-creating-components.png)
+
+### Preventing re-renders with composition: moving state down
+
+![](https://www.developerway.com/assets/react-re-renders-guide/part3-moving-state-down.png)
+
+### Preventing re-renders with composition: children as props
+
+![](https://www.developerway.com/assets/react-re-renders-guide/part3-passing-as-children.png)
+
+### Preventing re-renders with composition: components as props
+
+![](https://www.developerway.com/assets/react-re-renders-guide/part3-passing-as-props.png)
 
 \=================
 
