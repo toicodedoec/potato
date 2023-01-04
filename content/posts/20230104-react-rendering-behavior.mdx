@@ -1,0 +1,187 @@
+---
+title: React Rendering Behavior
+date: 2023-01-04
+tags:
+  - react
+  - interview
+---
+<https://blog.isquaredsoftware.com/presentations/2022-10-guide-react-rendering-behavior/?slideIndex=5&stepIndex=0>
+
+\=================
+
+**"Rendering"** is the process of React asking your components to describe what they want their section of the UI to look like, now, based on the current combination of props and state.
+
+```jsx
+// This JSX syntax:
+return <MyComponent a={42} b="testing">Text here</MyComponent>
+
+// is converted to this call:
+return React.createElement(MyComponent, {a: 42, b: "testing"}, "Text Here")
+
+// and that becomes this element object:
+{type: MyComponent, props: {a: 42, b: "testing"}, children: ["Text Here"]}
+
+// And internally, React calls the actual function to render it:
+let elements = MyComponent({...props, children})
+
+// For "host components" like HTML:
+return <button onClick={() => {}}>Click Me</button> 
+// becomes
+React.createElement("button", {onClick}, "Click Me")
+// and finally:
+{type: "button", props: {onClick}, children: ["Click me"]}
+```
+
+\=================
+
+### Render and Commit Phases
+
+Each render pass is divided into two main sections:
+
+**"Render phase"**
+
+Contains all the work of rendering components and calculating changes. (This phase can be interrupted / split into multiple sections / thrown away.)
+
+* React loops over the entire component tree, finds components marked for updates
+* Calls components to render them and collects the element tree
+
+**"Commit Phase"**
+
+Contains the work of applying those changes to the DOM, plus effects / lifecycles:
+
+* All DOM updates are applied, synchronously
+* Layout effects and class component lifecycles run, sync
+
+The `useEffect` hooks run on a short delay *after* the commit phase is done, to let the browser have a chance to paint in between.
+
+**Rendering a component will, by default, cause *all* components inside of it to be rendered too!**
+
+Similarly: **In normal rendering, React does not care whether "props changed" - it will render child components unconditionally just because the parent rendered!**
+
+\=================
+
+### "Rendering" vs "DOM Updates"
+
+Note that "rendering" does *not* automatically mean "updates to the DOM":
+
+* Conceptually, we *can* think of rendering as "redrawing the entire UI", and React does loop through the whole tree
+* But, a component may return an equivalent tree of elements as last time, in which case React's reconcilation sees "no change needed here" and there are no DOM updates needed for that component
+* React *did* have to "render" the component to find that out first
+
+**Rendering is not a *bad* thing - it's how React knows whether it needs to actually make any changes to the DOM!**
+
+\=================
+
+React stores component "instances" and metadata in internal **"Fiber"** objects:
+
+* Class instance or hooks array
+* Current props and state
+* Pointers to parent, sibling, and child components
+* Other internal metadata that React uses to track the rendering process
+
+These are the *real* data for each component!
+
+\=================
+
+### Component Types and Reconciliation
+
+React reuses existing component instances and DOM nodes as much as possible. However, to speed up reconciliation:
+
+* it compares old and new component *types* at a location
+* if `prevElement.type !== currElement.type`, it assumes the *entire* subtree will be different
+
+That means **React will destroy that entire existing component tree section, including all DOM nodes**, and recreate it from scratch with new component instances.
+
+For correct behavior, **you must *never* create new component types *while rendering*, because that creates new references!**
+
+```javascript
+// ❌ BAD!
+// This creates a new `ChildComponent` reference every time!
+function ParentComponent() {
+  function ChildComponent() {    
+    return <div>Hi</div>
+  }
+  
+  return <ChildComponent />
+}
+
+// ✅ GOOD
+// This only creates one component type reference
+function ChildComponent() {
+  return <div>Hi</div>
+}
+
+function ParentComponent() {
+  return <ChildComponent />
+}
+```
+
+\=================
+
+### Keys and Reconcilation
+
+React identifies component instances via  **`<SomeComponent key="someValue">`**:
+
+* Not actually a real "prop" - it's an instruction to React
+* React always strips `key` out, so you can *never* have `props.key`
+
+Keys are *primarily* used for list item identity, especially when adding/reordering/deleting items. This ensures each item is updated correctly.
+
+**Keys should be some kind of unique IDs from your data if at all possible - only use array indices as keys as a fallback, and *never* use random values!**
+
+\=================
+
+### Render Batching and Timing
+
+Each call to `setState()` queues a render pass. However, **React "batches" multiple queued updates in the same event loop tick into *one* combined render pass**, executed at the end of the tick in a "microtask". 
+
+* React <= 17.x: batching done only in React event handlers by default ( `onClick`, etc)
+* React 18.x: ["automatic batching"](https://github.com/reactwg/react-18/discussions/21) applied *all* the time
+
+```javascript
+const [counter, setCounter] = useState(0);
+
+const onClick = async () => {
+  setCounter(0);
+  setCounter(1);
+  
+  const data = await fetchSomeData();
+  
+  setCounter(2);
+  setCounter(3);
+}
+```
+
+* React 17 - ***three*** total renders:
+
+  * `setCounter(0/1)` batched together
+  * `async` causes new event loop tick
+  * `setCounter(2)` and `setCounter(3)` each render sync, separately
+* React 18 - ***two*** total renders:
+
+  * `setCounter(0/1)` batched together
+  * `async` causes new event loop tick
+  * `setCounter(2/3)` batched in this tick
+
+\=================
+
+### "Async Rendering" and Closures
+
+```javascript
+const [counter, setCounter] = useState(0);
+
+const handleClick = () => {
+  setCounter(counter + 1);
+  console.log(counter);
+  // Why is this not updated yet??????
+}
+```
+
+**Extremely** common user mistake: set new value, then try to log the *existing* variable. Why doesn't this work?
+
+Common shorthand answer: "React rendering is async", but really two reasons:
+
+* The actual render will be sync, but later, at the *end* of the event loop
+* The event handler is a "closure", and **still sees the original `counter` value *at the time the component last rendered*!**
+
+\=================
