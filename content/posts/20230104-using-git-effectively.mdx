@@ -1,0 +1,63 @@
+---
+title: Using GIT effectively
+date: 2023-01-04
+tags:
+  - git
+---
+### Advanced git log
+
+<https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/?slideIndex=21&stepIndex=0>
+
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+```
+git lg
+```
+
+
+
+![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/git-lg.3680c344.jpg)
+
+Or, if you want to see the lines that changed
+
+```
+git lg -p
+```
+
+### Resetting options
+
+`git reset`: move a branch pointer to point to a different commit
+
+* `--soft`: keep the current files on disk and in the staging area
+* `--mixed`: keep the current files on disk, but clear the staging area
+* `--hard`: clear the staging area *and* make the working directory look exactly like this specific commit
+
+![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/reset-commit.b3c23275.svg)
+
+### Reverting commits
+
+`git revert`: creates new commits with the "opposite" changes of the commits you want to undo
+
+![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/revert-concept.6b20f90d.png)
+
+### Rebasing Branches
+
+`git rebase`: rewrite the history of a branch so that it starts from a different base commit than it did originally
+
+![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/rebase.033ef252.svg)
+
+### Git Internal Data Structures
+
+*Look like a "blockchain"*
+
+* Because commits are a linked list based on hashes, and the hashes are based on byte contents of files and other structures, changing any one bit in an earlier commit would have a ripple effect - every hash of each commit after that would be different.
+* Git commit objects are *immutable* - once created, they cannot actually be changed
+* This means that you can't *change* history, exactly - you can only create an *alternate* history
+
+![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/commit-list.d90ebe39.png)
+
+
+
+
+
+![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/objects-example.2d141ac2.png)
