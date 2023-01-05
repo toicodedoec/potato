@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       slug: data.slug ?? slug,
       description: "",
       tags: data.tags ?? ["code"],
-      author: data.author ?? "potato",
+      // author: data.author,
       source: mdxSource
     },
   };
