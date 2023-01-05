@@ -104,9 +104,12 @@ collections:
       - label: "Publish Date"
         name: "date"
         widget: "datetime"
-        format: "YYYY-MM-DD"
-        dateFormat: "YYYY-MM-DD"
+        format: "YYYY-MM-DD HH:mm"
+        dateFormat: "YYYY-MM-DD HH:mm"
         timeFormat: false
+      - label: "Keywords"
+        name: "keywords"
+        widget: "string"
       - label: Tags
         label_singular: "Tag"
         name: "tags"

@@ -20,6 +20,7 @@ type Props = {
   tags: string[];
   author?: string;
   description?: string;
+  keywords?: string;
   children: React.ReactNode;
 };
 export default function PostLayout({
@@ -29,16 +30,17 @@ export default function PostLayout({
   author,
   tags,
   description = "",
+  keywords = "",
   children,
 }: Props) {
-  const keywords = tags.map(it => getTag(it).name);
+  const combineKeywords = tags.map(it => getTag(it).name).concat(keywords.split(","));
   const authorName = author ? getAuthor(author).name : '';
   return (
     <Layout>
       <BasicMeta
         url={`/posts/${slug}`}
         title={title}
-        keywords={keywords}
+        keywords={combineKeywords}
         description={description}
       />
       <TwitterCardMeta
@@ -54,7 +56,7 @@ export default function PostLayout({
       <JsonLdMeta
         url={`/posts/${slug}`}
         title={title}
-        keywords={keywords}
+        keywords={combineKeywords}
         date={date}
         author={authorName}
         description={description}
@@ -74,6 +76,11 @@ export default function PostLayout({
           </header>
           <div className={styles.content}>{children}</div>
           <ul className={"tag-list"}>
+            {keywords && keywords.split(",").map((it, i) => (
+              <li key={i}>
+                #{it}
+              </li>
+            ))}
             {tags.map((it, i) => (
               <li key={i}>
                 <TagButton tag={getTag(it)} />
