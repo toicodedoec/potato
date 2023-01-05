@@ -46,3 +46,11 @@ a:hover {
   top: 0;
   left: 0;
 }
+/* override TW */
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.17em;
+  font-weight: bold;
+}
+ol, ul {
+  list-style: disc;
+}
