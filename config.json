@@ -1,17 +1,12 @@
 {
-  "base_url": "https://monetaboot.netlify.app/posts",
+  "base_url": "thehashtable.com",
   "site_title": "The Hash Table",
   "site_description": "The Hash Table",
   "site_keywords": [
-    {
-      "keyword": "Next.js"
-    },
-    {
-      "keyword": "Netlify"
-    },
-    {
-      "keyword": "React"
-    }
+    "nextjs",
+    "netlify",
+    "react",
+    "blog"
   ],
   "posts_per_page": 10,
   "twitter_account": "@my-account",
