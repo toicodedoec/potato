@@ -31,3 +31,9 @@ tags:
     name: react
   - slug: interview
     name: interview
+  - slug: javascript
+    name: javascript
+  - slug: java
+    name: java
+  - slug: aws
+    name: aws
