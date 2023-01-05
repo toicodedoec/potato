@@ -100,8 +100,7 @@ export default function PostLayout({
         {`
             .container {
               display: block;
-              max-width: 60rem;
-              width: 100%;
+              width: 80%;
               margin: 0 auto;
               padding: 0 1.5rem;
               box-sizing: border-box;
