@@ -13,8 +13,6 @@ tags:
     name: git
   - slug: code
     name: code
-  - slug: image
-    name: image
   - slug: english
     name: english
   - slug: sd
