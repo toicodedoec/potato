@@ -28,13 +28,13 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
-            <Link href="/fun">
+            <Link href="/sample-tw-ui">
               <a
                 className={
-                  router.pathname.startsWith("/fun") ? "active" : null
+                  router.pathname.startsWith("/sample-tw-ui") ? "active" : null
                 }
               >
-                fun
+               sample-tw-ui  
               </a>
             </Link>
           </li>

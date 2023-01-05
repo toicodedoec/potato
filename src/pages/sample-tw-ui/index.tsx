@@ -4,9 +4,12 @@ import Layout from "../../components/Layout";
 import BasicMeta from "../../components/meta/BasicMeta";
 import OpenGraphMeta from "../../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../../components/meta/TwitterCardMeta";
+import useTailwindLayout from "../../hooks/useTailwindLayout";
 
 export default () => {
   const [fun, setFun] = useState("");
+
+  useTailwindLayout
 
   useEffect(() => {
     setFun(`Have fun at ${new Date()}`);
