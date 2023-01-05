@@ -1,20 +1,20 @@
 ---
 title: Using GIT effectively
 date: 2023-01-04
+keywords: git, cli, effectively, git log, git revert, rebase, git rebase, git
+  data structure, commit, tree, blob, history, working directory, head
 tags:
   - git
 ---
 ### Advanced git log
 
-Ref: <https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/?slideIndex=21&stepIndex=0>
+Ref: (using-git)[[https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/?slideIndex=21&stepIndex=0]](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/?slideIndex=21&stepIndex=0)
 
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 ```
 git lg
 ```
-
-
 
 ![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/git-lg.3680c344.jpg)
 
@@ -55,9 +55,5 @@ git lg -p
 * This means that you can't *change* history, exactly - you can only create an *alternate* history
 
 ![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/commit-list.d90ebe39.png)
-
-
-
-
 
 ![](https://blog.isquaredsoftware.com/presentations/2021-05-using-git-effectively/static/media/objects-example.2d141ac2.png)
