@@ -9,7 +9,7 @@ tags:
 
 <https://www.developerway.com/posts/react-re-renders-guide>
 
-\=================
+=================
 
 A component render is considered "wasted" if it returns the same requested elements as before. Normally, `UI = f(props + state)`, so if props and state haven't changed, the UI output *should* be the same.
 
@@ -21,7 +21,7 @@ We can optimize performance by skipping component renders if props haven't chang
   * Accepts a custom comparison callback as an option
 * Class components: `shouldComponentUpdate` or `React.PureComponent`
 
-\=================
+=================
 
 ```javascript
 // ❌ BAD!
@@ -74,7 +74,7 @@ function ComponentA({data}) {
 }
 ```
 
-\=================
+=================
 
 ### Antipattern: Creating components in render function
 
@@ -101,7 +101,7 @@ Creating components inside render function of another component is an anti-patte
 
 ![](https://www.developerway.com/assets/react-re-renders-guide/part3-passing-as-props.png)
 
-\=================
+=================
 
 ### Immutability and Rerendering
 

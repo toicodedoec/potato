@@ -7,7 +7,7 @@ tags:
 ---
 <https://blog.isquaredsoftware.com/presentations/2022-10-guide-react-rendering-behavior/?slideIndex=5&stepIndex=0>
 
-\=================
+=================
 
 **"Rendering"** is the process of React asking your components to describe what they want their section of the UI to look like, now, based on the current combination of props and state.
 
@@ -32,7 +32,7 @@ React.createElement("button", {onClick}, "Click Me")
 {type: "button", props: {onClick}, children: ["Click me"]}
 ```
 
-\=================
+=================
 
 ### Render and Commit Phases
 
@@ -58,7 +58,7 @@ The `useEffect` hooks run on a short delay *after* the commit phase is done,
 
 Similarly: **In normal rendering, React does not care whether "props changed" - it will render child components unconditionally just because the parent rendered!**
 
-\=================
+=================
 
 ### "Rendering" vs "DOM Updates"
 
@@ -70,7 +70,7 @@ Note that "rendering" does *not* automatically mean "updates to the DOM":
 
 **Rendering is not a *bad* thing - it's how React knows whether it needs to actually make any changes to the DOM!**
 
-\=================
+=================
 
 React stores component "instances" and metadata in internal **"Fiber"** objects:
 
@@ -81,7 +81,7 @@ React stores component "instances" and metadata in internal **"Fiber"** object
 
 These are the *real* data for each component!
 
-\=================
+=================
 
 ### Component Types and Reconciliation
 
@@ -116,7 +116,7 @@ function ParentComponent() {
 }
 ```
 
-\=================
+=================
 
 ### Keys and Reconcilation
 
@@ -129,7 +129,7 @@ Keys are *primarily* used for list item identity, especially when adding/reord
 
 **Keys should be some kind of unique IDs from your data if at all possible - only use array indices as keys as a fallback, and *never* use random values!**
 
-\=================
+=================
 
 ### Render Batching and Timing
 
@@ -163,7 +163,7 @@ const onClick = async () => {
   * `async` causes new event loop tick
   * `setCounter(2/3)` batched in this tick
 
-\=================
+=================
 
 ### "Async Rendering" and Closures
 
@@ -184,4 +184,4 @@ Common shorthand answer: "React rendering is async", but really two reasons:
 * The actual render will be sync, but later, at the *end* of the event loop
 * The event handler is a "closure", and **still sees the original `counter` value *at the time the component last rendered*!**
 
-\=================
+=================

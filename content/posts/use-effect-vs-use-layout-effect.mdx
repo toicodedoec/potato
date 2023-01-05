@@ -13,6 +13,6 @@ useEffect: runs asynchronously, more performance. Use this hook for side-effect 
 
 useLayoutEffect: synchronously, not good performance, but making sure that the changes apply to DOM run immediately/on-time. Use this hooks for changing layout/DOM
 
-\=================
+=================
 
 Thằng layout là nó chạy đồng bộ sau render nhưng trước khi DOM đc paint lên màn hình cho mình thấy á. Cho nên lúc này cái ref có value rồi á bạn. Layout chạy xong là UI nó hiển thị lên màn hình liền. K xong thì nó đứng cmn hình luôn ở đây. Còn effect nó chạy bất đồng bộ sau khi render. Dev hay dùng cái hôk layout này để hack UI tránh bị blink. Kiểu bạn xài cái lib có cái text bản quyền mà bạn mún hide nó đi. Hide trong effect thì nó bị kiểu này render đầu tiên hiển thị ra cái text đó > effect chạy biểu hide text giúp toy > trigger render 2 lúc này text mới hide nè. Mắt mình k thấy nháy chứ mắt QC sẽ thấy
