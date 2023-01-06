@@ -38,23 +38,23 @@ export default function PostLayout({
   return (
     <Layout>
       <BasicMeta
-        url={`/posts/${slug}`}
+        url={`/notes/${slug}`}
         title={title}
         keywords={combineKeywords}
         description={description}
       />
       <TwitterCardMeta
-        url={`/posts/${slug}`}
+        url={`/notes/${slug}`}
         title={title}
         description={description}
       />
       <OpenGraphMeta
-        url={`/posts/${slug}`}
+        url={`/notes/${slug}`}
         title={title}
         description={description}
       />
       <JsonLdMeta
-        url={`/posts/${slug}`}
+        url={`/notes/${slug}`}
         title={title}
         keywords={combineKeywords}
         date={date}
