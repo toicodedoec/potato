@@ -4,6 +4,7 @@ import OpenGraphMeta from "../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
 import useSWR from 'swr';
+import Search from "../components/Search";
 
 const API_URL = 'https://ipapi.co/json/';
 
@@ -33,18 +34,17 @@ export default function Index() {
       <OpenGraphMeta url={"/"} />
       <TwitterCardMeta url={"/"} />
       <div className="container">
-        <div>
-          <h1 className="fancy">
-           The Hash Table 
-          </h1>
-          <span className="handle">@hash-table</span>
-          {/* <SocialList /> */}          
+        <div className="w-full sm:w-9/12">
+          <h1>The Hash Table</h1>
+          <Search />
+          {/* <h3 style={{color: 'darkorange'}} className="pt-5">in</h3> */}
+          {/* <SocialList /> */}
         </div>
+        {/* <span className="handle">@hash-table</span> */}
       </div>
       <style jsx>{`
         .container {
           display: flex;
-          align-items: center;
           justify-content: center;
           flex: 1 1 auto;
           padding: 0 1.5rem;
