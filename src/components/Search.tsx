@@ -46,7 +46,7 @@ export default function Search() {
         className={styles.search}
         onChange={onChange}
         onFocus={onFocus}
-        placeholder='Search notes in The Hash Table'
+        placeholder='what are you looking for?'
         type='text'
         value={query}
       />

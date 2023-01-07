@@ -34,11 +34,12 @@ export default function Index() {
       <OpenGraphMeta url={"/"} />
       <TwitterCardMeta url={"/"} />
       <div className="container">
-        <div className="w-full sm:w-9/12">
-          <h1>The Hash Table</h1>
+        <div className="max-w-full">
+          {/* <h1>The Hash Table</h1> */}
           <Search />
           {/* <h3 style={{color: 'darkorange'}} className="pt-5">in</h3> */}
           {/* <SocialList /> */}
+          <img src="/images/rsz_thehashtable.jpg" className="pt-5 h-auto max-w-full mx-auto" alt="..." />
         </div>
         {/* <span className="handle">@hash-table</span> */}
       </div>
