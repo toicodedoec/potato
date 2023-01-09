@@ -5,6 +5,7 @@ import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
 import useSWR from 'swr';
 import Search from "../components/Search";
+import SubNavigation from "../components/SubNavigation";
 
 const API_URL = 'https://ipapi.co/json/';
 
@@ -34,12 +35,13 @@ export default function Index() {
       <OpenGraphMeta url={"/"} />
       <TwitterCardMeta url={"/"} />
       <div className="container">
-        <div className="max-w-full">
+        <div className="max-w-full gap-y-5 flex flex-col">
           {/* <h1>The Hash Table</h1> */}
+          <SubNavigation />
           <Search />
           {/* <h3 style={{color: 'darkorange'}} className="pt-5">in</h3> */}
           {/* <SocialList /> */}
-          <img src="/images/rsz_thehashtable.jpg" className="pt-5 h-auto max-w-full mx-auto" alt="..." />
+          <img src="/images/rsz_thehashtable.jpg" className="h-auto max-w-full mx-auto" />
         </div>
         {/* <span className="handle">@hash-table</span> */}
       </div>

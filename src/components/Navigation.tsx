@@ -9,95 +9,101 @@ export default function Navigation() {
   return (
     <>
       <Burger active={active} onClick={() => setActive(!active)} />
-      <div className={"container " + (active ? "active" : "")}>
-        <ul>
-          <li>
-            <Link href="/">
-              <a className={router.pathname === "/" ? "active" : null}>search</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/notes">
-              <a
-                className={
-                  router.pathname.startsWith("/notes") ? "active" : null
-                }
-              >
-                all notes
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/sample-tw-ui">
-              <a
-                className={
-                  router.pathname.startsWith("/sample-tw-ui") ? "active" : null
-                }
-              >
-               sample-tw-ui  
-              </a>
-            </Link>
-          </li>
-        </ul>
-        <style jsx>
-          {`
-            .container {
-              width: 0;
-            }
-            ul {
-              opacity: 0;
-              width: 100%;
-              height: 100vh;
-              text-align: right;
-              list-style: none;
-              margin: 0;
-              padding: 0;
-              position: fixed;
-              top: 0;
-              background-color: #fff;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              z-index: 1;
-              transform: translateY(100%);
-              transition: opacity 200ms;
-            }
-            .active ul {
-              opacity: 1;
-              transform: translateY(0);
-            }
-            li {
-              margin-bottom: 1.75rem;
-              font-size: 2rem;
-              padding: 0 1.5rem 0 0;
-            }
-            li:last-child {
-              margin-bottom: 0;
-            }
-            .active {
-              color: #222;
-            }
-
-            @media (min-width: 769px) {
+      {router.pathname !== "/" && (
+        <div className={"container " + (active ? "active" : "")}>
+          <ul>
+            <li>
+              <Link href="/">
+                <a className={router.pathname === "/" ? "active" : null}>
+                  home
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/notes">
+                <a
+                  className={
+                    router.pathname.startsWith("/notes") ? "active" : null
+                  }
+                >
+                  all notes
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/sample-tw-ui">
+                <a
+                  className={
+                    router.pathname.startsWith("/sample-tw-ui")
+                      ? "active"
+                      : null
+                  }
+                >
+                  sample-tw-ui
+                </a>
+              </Link>
+            </li>
+          </ul>
+          <style jsx>
+            {`
               .container {
-                width: 7rem;
-                display: block;
+                width: 0;
               }
               ul {
+                opacity: 0;
+                width: 100%;
+                height: 100vh;
+                text-align: right;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                position: fixed;
+                top: 0;
+                background-color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                z-index: 1;
+                transform: translateY(100%);
+                transition: opacity 200ms;
+              }
+              .active ul {
                 opacity: 1;
-                width: 7rem;
-                top: auto;
-                display: block;
                 transform: translateY(0);
               }
               li {
-                font-size: 1rem;
-                padding: 0;
+                margin-bottom: 1.75rem;
+                font-size: 2rem;
+                padding: 0 1.5rem 0 0;
               }
-            }
-          `}
-        </style>
-      </div>
+              li:last-child {
+                margin-bottom: 0;
+              }
+              .active {
+                color: #222;
+              }
+
+              @media (min-width: 769px) {
+                .container {
+                  width: 7rem;
+                  display: block;
+                }
+                ul {
+                  opacity: 1;
+                  width: 7rem;
+                  top: auto;
+                  display: block;
+                  transform: translateY(0);
+                }
+                li {
+                  font-size: 1rem;
+                  padding: 0;
+                }
+              }
+            `}
+          </style>
+        </div>
+      )}
     </>
   );
 }

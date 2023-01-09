@@ -3,6 +3,9 @@ import { PostContent } from "../lib/posts";
 import { TagContent } from "../lib/tags";
 import PostItem from "./PostItem";
 import Pagination from "./Pagination";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import SubNavigation from "./SubNavigation";
 
 type Props = {
   posts: PostContent[];
@@ -13,10 +16,15 @@ type Props = {
   };
 };
 export default function TagPostList({ posts, tag, pagination }: Props) {
+  const router = useRouter();
   return (
     <div className={"container"}>
       <h1>
-        All notes/ <span>{tag.name}</span>
+        <Link href="/notes">
+          <a style={{ color: "blue" }}>All notes</a>
+        </Link>
+        / <span>{tag.name}</span>
+        <SubNavigation />
       </h1>
       <ul>
         {posts.map((it, i) => (
@@ -51,7 +59,7 @@ export default function TagPostList({ posts, tag, pagination }: Props) {
             padding: 0;
             font-weight: 100;
             font-size: 1.75rem;
-            color: #9b9b9b;
+            color: blue;
           }
           h1 span {
             font-weight: bold;

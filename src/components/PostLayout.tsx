@@ -12,6 +12,9 @@ import { SocialList } from "./SocialList";
 import TagButton from "./TagButton";
 import { getAuthor } from "../lib/authors";
 import { getTag } from "../lib/tags";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import SubNavigation from "./SubNavigation";
 
 type Props = {
   title: string;
@@ -33,8 +36,11 @@ export default function PostLayout({
   keywords = "",
   children,
 }: Props) {
-  const combineKeywords = tags.map(it => getTag(it).name).concat(keywords.split(","));
-  const authorName = author ? getAuthor(author).name : '';
+  const combineKeywords = tags
+    .map((it) => getTag(it).name)
+    .concat(keywords.split(","));
+  const authorName = author ? getAuthor(author).name : "";
+  const router = useRouter();
   return (
     <Layout>
       <BasicMeta
@@ -64,23 +70,26 @@ export default function PostLayout({
       <div className={"container"}>
         <article>
           <header>
+            <SubNavigation />
             <h1>{title}</h1>
             <div className={"metadata"}>
               <div>
                 <Date date={date} />
               </div>
-              {author ? <div>
-                <Author author={getAuthor(author)} />
-              </div> : null}
+              {author ? (
+                <div>
+                  <Author author={getAuthor(author)} />
+                </div>
+              ) : null}
             </div>
           </header>
           <div className={styles.content}>{children}</div>
           <ul className={"tag-list"}>
-            {keywords && keywords.split(",").map((it, i) => (
+            {/* {keywords && keywords.split(",").map((it, i) => (
               <li key={i}>
-                #{it}
+                #{it.trim()}
               </li>
-            ))}
+            ))} */}
             {tags.map((it, i) => (
               <li key={i}>
                 <TagButton tag={getTag(it)} />
@@ -93,52 +102,52 @@ export default function PostLayout({
             <SocialList />
           </div> */}
           {/* <Copyright /> */}
-          <div style={{height: 20}}>&nbsp;</div>
+          <div style={{ height: 20 }}>&nbsp;</div>
         </footer>
       </div>
       <style jsx>
         {`
-            .container {
-              width: 80%;
-              display: block;
-              margin: 0 auto;
-              padding: 0 1.5rem;
-              box-sizing: border-box;
-              z-index: 0;
-            }
-            .metadata div {
-              display: inline-block;
-              margin-right: 0.5rem;
-            }
-            article {
-              flex: 1 0 auto;
-            }
-            h1 {
-              margin: 0 0 0.5rem;
-              font-size: 2.25rem;
-            }
-            .tag-list {
-              list-style: none;
-              text-align: right;
-              margin: 1.75rem 0 0 0;
-              padding: 0;
-            }
-            .tag-list li {
-              display: inline-block;
-              margin-left: 0.5rem;
-            }
-            .social-list {
-              margin-top: 3rem;
-              text-align: center;
-            }
+          .container {
+            width: 80%;
+            display: block;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+            z-index: 0;
+          }
+          .metadata div {
+            display: inline-block;
+            margin-right: 0.5rem;
+          }
+          article {
+            flex: 1 0 auto;
+          }
+          h1 {
+            margin: 0 0 0.5rem;
+            font-size: 2.25rem;
+          }
+          .tag-list {
+            list-style: none;
+            text-align: right;
+            margin: 1.75rem 0 0 0;
+            padding: 0;
+          }
+          .tag-list li {
+            display: inline-block;
+            margin-left: 0.5rem;
+          }
+          .social-list {
+            margin-top: 3rem;
+            text-align: center;
+          }
 
-            @media (min-width: 769px) {
-              .container {
-                display: flex;
-                flex-direction: column;
-              }
+          @media (min-width: 769px) {
+            .container {
+              display: flex;
+              flex-direction: column;
             }
-          `}
+          }
+        `}
       </style>
     </Layout>
   );
