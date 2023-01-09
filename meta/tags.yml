@@ -15,15 +15,15 @@ tags:
     name: code
   - slug: english
     name: english
-  - slug: sd
+  - slug: systemdesign
     name: system-design
-  - slug: lc
+  - slug: leetcode
     name: leet-code
   - slug: python
     name: python
   - name: efficient-code
     slug: ec
-  - slug: ds
+  - slug: datastructure
     name: data-structure
   - slug: react
     name: react
