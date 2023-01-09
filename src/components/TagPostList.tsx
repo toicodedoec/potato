@@ -21,7 +21,7 @@ export default function TagPostList({ posts, tag, pagination }: Props) {
     <div className={"container"}>
       <h1>
         <Link href="/notes">
-          <a style={{ color: "blue" }}>All notes</a>
+          <a style={{ color: "#0070f3" }}>All notes</a>
         </Link>
         / <span>{tag.name}</span>
         <SubNavigation />
@@ -59,7 +59,7 @@ export default function TagPostList({ posts, tag, pagination }: Props) {
             padding: 0;
             font-weight: 100;
             font-size: 1.75rem;
-            color: blue;
+            color: #0070f3;
           }
           h1 span {
             font-weight: bold;

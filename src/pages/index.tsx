@@ -41,7 +41,7 @@ export default function Index() {
           <Search />
           {/* <h3 style={{color: 'darkorange'}} className="pt-5">in</h3> */}
           {/* <SocialList /> */}
-          <img src="/images/rsz_thehashtable.jpg" className="h-auto max-w-full mx-auto" />
+          <img src="/images/rsz_thehashtable.png" className="h-auto max-w-full mx-auto" />
         </div>
         {/* <span className="handle">@hash-table</span> */}
       </div>
