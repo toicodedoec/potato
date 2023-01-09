@@ -4,6 +4,7 @@ import PostItem from "./PostItem";
 import TagLink from "./TagLink";
 import Pagination from "./Pagination";
 import { TagContent } from "../lib/tags";
+import SubNavigation from "./SubNavigation";
 
 type Props = {
   posts: PostContent[];
@@ -16,30 +17,42 @@ type Props = {
 export default function PostList({ posts, tags, pagination }: Props) {
   return (
     <div className={"container"}>
-      <div className={"posts"}>
-        <ul className={"post-list"}>
-          {posts.map((it, i) => (
+      <SubNavigation />
+      <div className="tag-list">
+        <span>Tags:</span>&nbsp;
+        {tags.map((it, i) => (
+          <span key={i}>
+            <TagLink tag={it} />
+            &nbsp;
+          </span>
+        ))}
+      </div>
+      <div style={{ display: "flex" }}>
+        <div className={"posts"}>
+          <ul className={"post-list"}>
+            {posts.map((it, i) => (
+              <li key={i}>
+                <PostItem post={it} />
+              </li>
+            ))}
+          </ul>
+          <Pagination
+            current={pagination.current}
+            pages={pagination.pages}
+            link={{
+              href: (page) => (page === 1 ? "/notes" : "/notes/page/[page]"),
+              as: (page) => (page === 1 ? null : "/notes/page/" + page),
+            }}
+          />
+        </div>
+        <ul className={"categories"}>
+          {tags.map((it, i) => (
             <li key={i}>
-              <PostItem post={it} />
+              <TagLink tag={it} />
             </li>
           ))}
         </ul>
-        <Pagination
-          current={pagination.current}
-          pages={pagination.pages}
-          link={{
-            href: (page) => (page === 1 ? "/notes" : "/notes/page/[page]"),
-            as: (page) => (page === 1 ? null : "/notes/page/" + page),
-          }}
-        />
       </div>
-      <ul className={"categories"}>
-        {tags.map((it, i) => (
-          <li key={i}>
-            <TagLink tag={it} />
-          </li>
-        ))}
-      </ul>
       <style jsx>{`
         .container {
           display: flex;
@@ -47,6 +60,8 @@ export default function PostList({ posts, tags, pagination }: Props) {
           max-width: 1200px;
           width: 100%;
           padding: 0 1.5rem;
+          flex-direction: column;
+          row-gap: 1.25rem;
         }
         ul {
           margin: 0;
@@ -72,10 +87,16 @@ export default function PostList({ posts, tags, pagination }: Props) {
         .categories li {
           margin-bottom: 0.75em;
         }
+        .tag-list {
+          word-break: break-word;
+        }
 
         @media (min-width: 769px) {
           .categories {
             display: block;
+          }
+          .tag-list {
+            display: none;
           }
         }
       `}</style>

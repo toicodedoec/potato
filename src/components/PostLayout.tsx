@@ -147,6 +147,14 @@ export default function PostLayout({
               flex-direction: column;
             }
           }
+          @media (max-width: 769px) {
+            .container {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              padding: 0 1rem;
+            }
+          }
         `}
       </style>
     </Layout>
