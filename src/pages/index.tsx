@@ -3,11 +3,11 @@ import BasicMeta from "../components/meta/BasicMeta";
 import OpenGraphMeta from "../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
-import useSWR from 'swr';
+import useSWR from "swr";
 import Search from "../components/Search";
 import SubNavigation from "../components/SubNavigation";
 
-const API_URL = 'https://ipapi.co/json/';
+const API_URL = "https://ipapi.co/json/";
 
 async function fetcher(url) {
   const res = await fetch(url);
@@ -19,14 +19,7 @@ export default function Index() {
   const { data, error } = useSWR(API_URL, fetcher);
 
   if (data) {
-    const { ip, city, country, region } = data;
-    fetch("/api/sheet", {
-      method: "POST",
-        body: JSON.stringify({ip: ip, location: `${city}, ${region}, ${country}`}),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-    })
+    localStorage.setItem("ip", JSON.stringify(data));
   }
 
   return (
@@ -41,7 +34,10 @@ export default function Index() {
           <Search />
           {/* <h3 style={{color: 'darkorange'}} className="pt-5">in</h3> */}
           {/* <SocialList /> */}
-          <img src="/images/rsz_thehashtable.png" className="h-auto max-w-full mx-auto" />
+          <img
+            src="/images/rsz_thehashtable.png"
+            className="h-auto max-w-full mx-auto"
+          />
         </div>
         {/* <span className="handle">@hash-table</span> */}
       </div>

@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import { parseISO } from 'date-fns';
 
 async function handler(req, res) {
   if (req.method === 'POST') {
@@ -26,7 +25,7 @@ async function handler(req, res) {
       range: 'Sheet1!A2:C',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [[req.body.ip, req.body.location, ((new Date()).toISOString())]],
+        values: [[req.body.ip, req.body.location, ((new Date()).toISOString()), req.body.slug]],
       },
     });
 
