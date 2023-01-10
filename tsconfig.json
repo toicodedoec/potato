@@ -15,5 +15,5 @@
     "jsx": "preserve"
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "cache-data-for-search-api/data_indexer.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "cache-data-for-search-api/data_indexer.js", "src/context/index.js"]
 }
