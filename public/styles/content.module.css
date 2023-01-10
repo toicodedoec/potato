@@ -118,11 +118,13 @@
 .content ol li,
 .content ul li {
   line-height: 1.5rem;
+  word-break: break-work;
 }
 
 .content li ol,
 .content li ul {
   margin: 0;
+  word-break: break-work;
 }
 
 .content abbr[title] {
