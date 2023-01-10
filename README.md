@@ -111,3 +111,7 @@ as following instructions:
 ## License
 
 MIT
+
+## Notes
+
+next-mdx-remote. Light utilities that allow Next.js to statically load MDX and then properly hydrate on the client.
