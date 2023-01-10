@@ -7,6 +7,7 @@ const postsDirectory = path.join(process.cwd(), "content/posts");
 
 export type PostContent = {
   readonly date: string;
+  readonly description?: string;
   readonly title: string;
   readonly slug?: string;
   readonly tags?: string[];
@@ -40,6 +41,7 @@ export function fetchPostContent(): PostContent[] {
         tags: string[];
         slug: string;
         fullPath: string;
+        description: string;
       };
       matterData.fullPath = fullPath;
 
@@ -66,21 +68,6 @@ export function fetchPostContent(): PostContent[] {
       return -1;
     }
   });
-  // Cache the data
-  try {
-    fs.readdirSync("cache-data-for-search-api");
-  } catch (e) {
-    fs.mkdirSync("cache-data-for-search-api");
-  }
-  fs.writeFile(
-    "cache-data-for-search-api/data.ts",
-    `export const notes = ${JSON.stringify(postCache)}`,
-    { flag: "w" },
-    (err) => {
-      if (err) return console.log(err);
-      console.log("Notes cached.");
-    }
-  );
   return postCache;
 }
 

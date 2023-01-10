@@ -4,9 +4,10 @@ export default (req, res) => {
   const results = req.query.q
     ? notes.filter(
         (post) =>
-          post.title.toLowerCase().includes(req.query.q) ||
-          post.tags?.includes(req.query.q) ||
-          post.keywords?.includes(req.query.q)
+          post.title.toLowerCase().includes(req.query.q.toLowerCase()) ||
+          post.tags?.filter(t => t.toLowerCase().includes(req.query.q.toLowerCase())).length ||
+          post.keywords?.toLowerCase().includes(req.query.q.toLowerCase()) ||
+          post.description?.toLowerCase().includes(req.query.q.toLowerCase())
       )
     : [];
   res.statusCode = 200;

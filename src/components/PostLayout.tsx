@@ -1,19 +1,15 @@
 import React from "react";
 import styles from "../../public/styles/content.module.css";
 import Author from "./Author";
-import Copyright from "./Copyright";
 import Date from "./Date";
 import Layout from "./Layout";
 import BasicMeta from "./meta/BasicMeta";
 import JsonLdMeta from "./meta/JsonLdMeta";
 import OpenGraphMeta from "./meta/OpenGraphMeta";
 import TwitterCardMeta from "./meta/TwitterCardMeta";
-import { SocialList } from "./SocialList";
 import TagButton from "./TagButton";
 import { getAuthor } from "../lib/authors";
 import { getTag } from "../lib/tags";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import SubNavigation from "./SubNavigation";
 
 type Props = {
@@ -40,7 +36,6 @@ export default function PostLayout({
     .map((it) => getTag(it).name)
     .concat(keywords.split(","));
   const authorName = author ? getAuthor(author).name : "";
-  const router = useRouter();
   return (
     <Layout>
       <BasicMeta
