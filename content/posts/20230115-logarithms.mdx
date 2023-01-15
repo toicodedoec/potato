@@ -1,0 +1,28 @@
+---
+title: Logarithms
+date: 2023-01-15 09:32
+description: Let’s examine why algorithms such as binary search are described as O(log N).
+keywords: Logarithms,bigo,leetcode,binary search,log
+tags:
+  - leetcode
+  - ec
+---
+Ref: [A Common-Sense Guide to Data Structures and Algorithms, Second Edition, 2nd Edition](https://learning.oreilly.com/library/view/a-common-sense-guide/9781680508048/)
+
+2^3 is the equivalent of:
+
+2 \* 2 \* 2
+
+which just happens to be 8.
+
+Now, log2(8) is the converse. It means: how many times do you have to multiply 2 by itself to get a result of 8?
+
+Because you have to multiply 2 by itself 3 times to get 8, log2(8) = 3.
+
+Another way of explaining log2(8) is: if we keep dividing 8 by 2 until we end up with 1, how many 2s would we have in our equation?
+
+8 / 2 / 2 / 2 = 1
+
+In other words, how many times do we need to halve 8 until we end up with 1? In this example, it takes us three times. Therefore,
+
+log2(8) = 3.
