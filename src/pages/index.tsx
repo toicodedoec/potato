@@ -7,6 +7,16 @@ import useSWR from "swr";
 import Search from "../components/Search";
 import SubNavigation from "../components/SubNavigation";
 
+import { PawPrint, Users, Calendar, Bone } from 'lucide-react';
+import HeroSection from "./pawrise/pawrise_hero";
+import AdoptableDogs from "./pawrise/pawrise_adoptable_pets";
+import AboutUsSection from "./pawrise/pawrise_about_us";
+import CallToActionSection from "./pawrise/pawrise_call_to_action";
+import OurTeamSection from "./pawrise/pawrise_our_team";
+import SuccessStoriesSection from "./pawrise/pawrise_success_stories";
+import Contact from "./pawrise/pawrise_contact";
+import Header from "./pawrise/pawrise_header";
+
 const API_URL = "https://ipapi.co/json/";
 
 async function fetcher(url) {
@@ -22,25 +32,45 @@ export default function Index() {
     localStorage.setItem("ip", JSON.stringify(data));
   }
 
+  const dogs = [
+    {
+      name: "Rocky",
+      image: "/dogs/rocky.jpg",
+      weight: "75 lbs",
+      age: "4 years",
+      favorite: "Chicken treats",
+      description: "Rocky is always ready for an adventure and loves being around people."
+    },
+    {
+      name: "Bella",
+      image: "/dogs/bella.jpg",
+      weight: "20 lbs",
+      age: "5 years",
+      favorite: "Salmon snacks",
+      description: "Bella is a loyal companion who brings calm and warmth to her family."
+    },
+    {
+      name: "Max",
+      image: "/dogs/max.jpg",
+      weight: "60 lbs",
+      age: "3 years",
+      favorite: "Chicken treats",
+      description: "Max is an affectionate dog who’s always up for some fun and adventure."
+    }
+  ];
+
   return (
     <Layout>
-      <BasicMeta url={"/"} />
-      <OpenGraphMeta url={"/"} />
-      <TwitterCardMeta url={"/"} />
-      <div className="container">
-        <div className="max-w-full gap-y-5 flex flex-col">
-          {/* <h1>The Hash Table</h1> */}
-          <SubNavigation />
-          <Search />
-          {/* <h3 style={{color: 'darkorange'}} className="pt-5">in</h3> */}
-          {/* <SocialList /> */}
-          <img
-            src="/images/rsz_thehashtable.png"
-            className="h-auto max-w-full mx-auto"
-          />
-        </div>
-        {/* <span className="handle">@hash-table</span> */}
-      </div>
+      <main className="bg-white">
+        <Header/>
+        <HeroSection/>
+        <AdoptableDogs/>
+        <AboutUsSection/>
+        <CallToActionSection/>
+        <OurTeamSection/>
+        <SuccessStoriesSection/>
+        <Contact/>
+      </main>
       <style jsx>{`
         .container {
           display: flex;
