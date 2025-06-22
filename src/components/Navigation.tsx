@@ -13,14 +13,14 @@ export default function Navigation() {
         <div className={"container " + (active ? "active" : "")}>
           <ul>
             <li>
-              <Link href="/">
+              <Link href="/" legacyBehavior>
                 <a className={router.pathname === "/" ? "active" : null}>
                   home
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="/notes">
+              <Link href="/notes" legacyBehavior>
                 <a
                   className={
                     router.pathname.startsWith("/notes") ? "active" : null
@@ -31,7 +31,7 @@ export default function Navigation() {
               </Link>
             </li>
             <li>
-              <Link href="/sample-tw-ui">
+              <Link href="/sample-tw-ui" legacyBehavior>
                 <a
                   className={
                     router.pathname.startsWith("/sample-tw-ui")

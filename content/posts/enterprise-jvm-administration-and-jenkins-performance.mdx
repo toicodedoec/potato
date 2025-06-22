@@ -30,13 +30,13 @@ tags:
 * as you grow your heap size, remember that you still have to allow for Metaspace, as well as resources for the operating system;
 * while the default max heap size is 1/4 of physical memory, most JVM's I've encountered are "safe" to use up to 1/2;
 
- ![](https://images.ctfassets.net/vtn4rfaw6n2j/63i9SWZTwxYspjbe62VpTW/cf841fd60cf8b9b266a7167ee102721c/2019_kpis_bigbank_before.png)
+![](https://images.ctfassets.net/vtn4rfaw6n2j/63i9SWZTwxYspjbe62VpTW/cf841fd60cf8b9b266a7167ee102721c/2019_kpis_bigbank_before.png)
 
 * note that the application throughput is at \~92%, it means that about \~8% of the time, the application is waiting for GC;
 * remember, these are stop-the-world events, so during this time no other threads are moving, including login and http requests;
 * we aim to keep a healthy throughput at ~99%;
 * note that max pause GC time is +20s wait times; this explains the UI slowness reported;
-* we want to ideally see this number <1s;
+* we want to ideally see this number &lt;1s;
 * note that in this 72 hour period there were ~42k+ GC cycles;
 * after an analysis of the JVM arguments in place, it was found that several arguments were forcing the G1 algorithm to work overtime to keep within the constraints of the argument limitations;
 * examples of unwanted arguments:
@@ -53,7 +53,7 @@ tags:
 * all of those arguments have overhead to the JVM and force the GC to work outside of its default algorithms;
 * removing these args was recommended and ultimately led to a resolution;
 
- ![](https://images.ctfassets.net/vtn4rfaw6n2j/7qRH3Z3jYbPfFQJ3lHTHUP/e8f67879c29704dfc7df6d206ed432e5/2019_kpis_bigbank_after.png)
+![](https://images.ctfassets.net/vtn4rfaw6n2j/7qRH3Z3jYbPfFQJ3lHTHUP/e8f67879c29704dfc7df6d206ed432e5/2019_kpis_bigbank_after.png)
 
 * removing the JVM args that were causing overhead ultimately allowed the GC algorithm to do what it was intended to do without having to operate with a wrench in its cogs;
 * another example;
@@ -64,6 +64,6 @@ tags:
   -XX:MaxMetaspaceExpansion=64m
   ```
 
-  ![](https://images.ctfassets.net/vtn4rfaw6n2j/38MlTrRLRepJ2CgusFbSYB/7bd221fb04b42f47d9179ec9562bad16/2019_bigshipping_1week_gc_cause.png)
+![](https://images.ctfassets.net/vtn4rfaw6n2j/38MlTrRLRepJ2CgusFbSYB/7bd221fb04b42f47d9179ec9562bad16/2019_bigshipping_1week_gc_cause.png)
 * while the Jenkins codebase does not contain system.gc() method calls as a best practice, due to the over 4K plugins available for Jenkins, sometimes a plugin developer will use this method;
 * in this case the addition of the -XX:+DisableExplicitGC JVM arg resolved this issue;

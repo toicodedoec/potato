@@ -1,7 +1,11 @@
 import { GetStaticProps, GetStaticPaths } from "next";
-import renderToString from "next-mdx-remote/render-to-string";
-import { MdxRemote } from "next-mdx-remote/types";
-import hydrate from "next-mdx-remote/hydrate";
+// import { renderToString } from "next-mdx-remote/render-to-string";
+// import { MdxRemote } from "next-mdx-remote/types";
+// import { hydrate } from "next-mdx-remote/hydrate";
+
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
+
 import matter from "gray-matter";
 import { fetchPostContent } from "../../lib/posts";
 import fs from "fs";
@@ -9,10 +13,9 @@ import yaml from "js-yaml";
 import { parseISO } from "date-fns";
 import PostLayout from "../../components/PostLayout";
 
-import InstagramEmbed from "react-instagram-embed";
+// import InstagramEmbed from "react-instagram-embed";
 import YouTube from "react-youtube";
-import { TwitterTweetEmbed } from "react-twitter-embed";
-import rehypeHighlight from "rehype-highlight";
+// import { TwitterTweetEmbed } from "react-twitter-embed";
 import { useEffect } from "react";
 
 export type Props = {
@@ -26,7 +29,8 @@ export type Props = {
   source: MdxRemote.Source;
 };
 
-const components = { InstagramEmbed, YouTube, TwitterTweetEmbed };
+// const components = { InstagramEmbed, YouTube, TwitterTweetEmbed };
+const components = { YouTube };
 const slugToPostContent = ((postContents) => {
   let hash = {};
   postContents.forEach((it) => (hash[it.slug] = it));
@@ -43,8 +47,6 @@ export default function Post({
   keywords = "",
   source,
 }: Props) {
-  const content = hydrate(source, { components });
-
   useEffect(() => {
     const { ip, city, country, region } = JSON.parse(
       localStorage.getItem("ip")
@@ -73,7 +75,7 @@ export default function Post({
       description={description}
       keywords={keywords}
     >
-      {content}
+      <MDXRemote {...source} components={{ components }} />
     </PostLayout>
   );
 }
@@ -94,11 +96,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
     },
   });
-  const mdxSource = await renderToString(content, {
-    components,
-    scope: data,
-    mdxOptions: { rehypePlugins: [rehypeHighlight] },
-  });
+
+  const mdxSource = await serialize(source, { parseFrontmatter: true });
+
   return {
     props: {
       title: data.title,

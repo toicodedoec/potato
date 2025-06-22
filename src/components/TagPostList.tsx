@@ -20,7 +20,7 @@ export default function TagPostList({ posts, tag, pagination }: Props) {
   return (
     <div className={"container"}>
       <h1>
-        <Link href="/notes">
+        <Link href="/notes" legacyBehavior>
           <a style={{ color: "#0070f3" }}>All notes</a>
         </Link>
         / <span>{tag.name}</span>

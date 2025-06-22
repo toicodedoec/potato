@@ -8,7 +8,7 @@ type Props = {
 };
 export default function PostItem({ post }: Props) {
   return (
-    <Link href={"/notes/" + post.slug}>
+    <Link href={"/notes/" + post.slug} legacyBehavior>
       <a>
         <Date date={parseISO(post.date)} />
         <h2>{post.title}</h2>

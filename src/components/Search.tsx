@@ -55,12 +55,12 @@ export default function Search() {
           {results.map(({ slug, title }) => (
             <li className={styles.result} key={slug}>
               <Link href="/notes/[slug]" as={`/notes/${slug}`}>
-                <a>{title}</a>
+                {title}
               </Link>
             </li>
           ))}
         </ul>
       ) }
     </div>
-  )
+  );
 }
