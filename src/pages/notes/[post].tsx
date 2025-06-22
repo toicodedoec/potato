@@ -1,10 +1,9 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 // import { renderToString } from "next-mdx-remote/render-to-string";
-// import { MdxRemote } from "next-mdx-remote/types";
+import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
 // import { hydrate } from "next-mdx-remote/hydrate";
 
 import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
 
 import matter from "gray-matter";
 import { fetchPostContent } from "../../lib/posts";
@@ -26,7 +25,7 @@ export type Props = {
   author: string;
   keywords?: string;
   description?: string;
-  source: MdxRemote.Source;
+  source: MDXRemoteSerializeResult;
 };
 
 // const components = { InstagramEmbed, YouTube, TwitterTweetEmbed };

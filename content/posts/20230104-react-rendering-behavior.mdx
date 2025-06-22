@@ -135,7 +135,7 @@ Keys are *primarily* used for list item identity, especially when adding/reord
 
 Each call to `setState()` queues a render pass. However, **React "batches" multiple queued updates in the same event loop tick into *one* combined render pass**, executed at the end of the tick in a "microtask". 
 
-* React <= 17.x: batching done only in React event handlers by default ( `onClick`, etc)
+* React &lt;= 17.x: batching done only in React event handlers by default ( `onClick`, etc)
 * React 18.x: ["automatic batching"](https://github.com/reactwg/react-18/discussions/21) applied *all* the time
 
 ```javascript
