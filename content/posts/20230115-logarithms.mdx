@@ -26,3 +26,22 @@ Another way of explaining log2(8) is: if we keep dividing 8 by 2 until we end 
 In other words, how many times do we need to halve 8 until we end up with 1? In this example, it takes us three times. Therefore,
 
 log2(8) = 3.
+
+Let’s bring this all back to Big O Notation. In computer science, whenever we say O(log N), it’s actually shorthand for saying O(log2 N). We just omit that small 2 for convenience.
+
+Recall that Big O Notation resolves the key question: if there are N data elements, how many steps will the algorithm take?
+
+The following table demonstrates a striking difference between the efficiencies of O(N) and O(log N):
+
+| N Elements | O(N) | O(logN) |
+| ---------- | ---- | ------- |
+| 8          | 8    | 3       |
+| 16         | 16   | 4       |
+| 32         | 32   | 5       |
+| 64         | 64   | 6       |
+| 128        | 128  | 7       |
+| 256        | 256  | 8       |
+| 512        | 512  | 9       |
+| 1024       | 1024 | 10      |
+
+While the O(N) algorithm takes as many steps as there are data elements, the O(log N) algorithm takes just one additional step each time the data is doubled.
